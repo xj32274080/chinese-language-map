@@ -26,6 +26,16 @@
     .title{ font-size:16px; font-weight:700; }
     .sub{ font-size:12px; color:var(--muted); margin-top:2px; }
     .right{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .search{
+      border:1px solid var(--bd);
+      background:#fff;
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:12px;
+      min-width:180px;
+      outline:none;
+    }
+    .search:focus{ box-shadow:0 0 0 3px #11182714; border-color:#d1d5db; }
     .pill{
       border:1px solid var(--bd); background:#fff; color:var(--txt);
       padding:7px 10px; border-radius:999px; font-size:12px; cursor:pointer; user-select:none;
@@ -85,6 +95,14 @@
     td.focus .cell{ outline:2px solid var(--focus-outline); outline-offset:2px; border-radius:10px; }
     td.focus-weak .cell{ outline:2px dashed #11182722; outline-offset:2px; border-radius:10px; }
     .legend{ font-size:12px; color:var(--muted); }
+    .stats{
+      margin-top:8px;
+      font-size:12px;
+      color:var(--muted);
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
   
     .layout{ display:flex; gap:12px; align-items:flex-start; }
     .sidebar{
@@ -105,6 +123,14 @@
     .theme small{ display:block; margin-top:6px; font-size:12px; color:rgba(255,255,255,0.85); }
     .theme:not(.active) small{ color:var(--muted); }
     .main{ flex:1 1 auto; min-width: 700px; }
+    .hidden-cell{ display:none; }
+
+    @media (max-width: 1100px){
+      .layout{ flex-direction:column; }
+      .sidebar{ width:auto; position:static; max-height:none; }
+      .main{ min-width:0; width:100%; }
+      .scroll{ max-height:none; }
+    }
     
   </style>
 </head>
@@ -117,11 +143,14 @@
       </div>
       <div class="right">
         <span class="legend" id="activeLabel">当前：全部</span>
+        <input class="search" id="searchInput" type="search" placeholder="搜索要素 / 单元关键词" />
         <span class="pill" id="modeBtn">高亮：主题链</span>
+        <span class="pill" id="onlyMatchBtn">仅看命中</span>
         <span class="pill" id="clearBtn">清除筛选</span>
         <span class="pill primary" id="collapseBtn">卡片收起/展开</span>
       </div>
     </div>
+    <div class="stats" id="statsBar"></div>
 
     
     <div class="layout">
@@ -253,6 +282,8 @@
   let activeToken = null;   // 主题名或词
   let activeKw = null;      // 记录用户最后点到的词（用于文案显示）
   let compact = false;
+  let searchText = "";
+  let onlyMatched = false;
 
   function getThemeSets(token){
     // token：主题名或词
@@ -392,6 +423,7 @@
     activeToken = token;
     activeKw = clickedKw || token;
     applyState();
+    renderThemeList();
     const label = document.getElementById("activeLabel");
     if(!activeToken){ label.textContent = "当前：全部"; return; }
     const sets = getThemeSets(activeToken);
@@ -405,18 +437,33 @@
 
   function applyState(){
     const sets = activeToken ? getThemeSets(activeToken) : null;
+    let total = 0;
+    let matched = 0;
 
     document.querySelectorAll("td[data-cell]").forEach(td=>{
       td.classList.remove("dim","focus","focus-weak");
-      if(!sets || !activeToken) return;
+      td.classList.remove("hidden-cell");
 
       const tags = (td.dataset.keywords || "").split("|").filter(Boolean);
-      const hitStrong = tags.some(x => sets.strong.has(x));
-      const hitAny = tags.some(x => sets.all.has(x));
+      const text = td.innerText || "";
+      const hitSearch = !searchText || text.includes(searchText) || tags.some(x=>x.includes(searchText));
 
-      if(hitStrong) td.classList.add("focus");
-      else if(hitAny) td.classList.add("focus-weak");
-      else td.classList.add("dim");
+      let hitStrong = false;
+      let hitAny = false;
+      if(sets && activeToken){
+        hitStrong = tags.some(x => sets.strong.has(x));
+        hitAny = tags.some(x => sets.all.has(x));
+
+        if(hitStrong) td.classList.add("focus");
+        else if(hitAny) td.classList.add("focus-weak");
+        else td.classList.add("dim");
+      }
+
+      const shouldShow = hitSearch && (!onlyMatched || !sets || hitAny);
+      if(!shouldShow) td.classList.add("hidden-cell");
+
+      total += 1;
+      if(hitSearch && (!sets || hitAny)) matched += 1;
     });
 
     // 关键词高亮：主题链模式下，strong 用 active（黑底），weak 用 weak（灰底）
@@ -445,10 +492,23 @@
     }else{
       status.textContent = `词面模式：只按「${activeToken}」这个词进行联动。`;
     }
+
+    const stats = document.getElementById("statsBar");
+    stats.textContent = `单元统计：可见 ${matched}/${total} ｜ 搜索：${searchText ? `“${searchText}”` : "无"} ｜ 仅看命中：${onlyMatched ? "开" : "关"}`;
   }
 
   document.getElementById("clearBtn").addEventListener("click", ()=>setActive(null));
   document.getElementById("collapseBtn").addEventListener("click", ()=>{ compact = !compact; applyState(); });
+  document.getElementById("onlyMatchBtn").addEventListener("click", ()=>{
+    onlyMatched = !onlyMatched;
+    document.getElementById("onlyMatchBtn").classList.toggle("primary", onlyMatched);
+    applyState();
+  });
+
+  document.getElementById("searchInput").addEventListener("input", (e)=>{
+    searchText = e.target.value.trim();
+    applyState();
+  });
 
   document.getElementById("modeBtn").addEventListener("click", ()=>{
     mode = (mode === "theme") ? "word" : "theme";
@@ -470,6 +530,7 @@
 
   renderGrid();
   renderThemeList();
+  applyState();
 </script>
 </body>
 </html>
