@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -61,6 +61,62 @@
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- Export Toast: 导出成功轻提示条 --- */
+        .export-toast {
+            position: fixed;
+            left: 50%;
+            bottom: 4.75rem;
+            transform: translate(-50%, 1rem);
+            width: min(92vw, 36rem);
+            padding: 0.9rem 1rem;
+            border: 1px solid rgba(148, 163, 184, 0.28);
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 18px 48px rgba(15, 23, 42, 0.16);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            z-index: 70;
+        }
+        .export-toast.is-visible {
+            opacity: 1;
+            transform: translate(-50%, 0);
+            pointer-events: auto;
+        }
+        .export-toast-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.75rem;
+        }
+        .export-toast-btn {
+            border: 0;
+            border-radius: 999px;
+            padding: 0.55rem 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .export-toast-btn:hover {
+            transform: translateY(-1px);
+        }
+        .export-toast-btn-primary {
+            background: #2563eb;
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.24);
+        }
+        .export-toast-btn-secondary {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        @media (max-width: 640px) {
+            .export-toast {
+                bottom: 4.25rem;
+                width: min(94vw, 30rem);
+            }
+        }
+
         /* --- Shared Styles --- */
         .main-title { background: linear-gradient(135deg, #2c5282 0%, #3b82f6 60%, #60a5fa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
@@ -95,6 +151,25 @@
         #page-errors .question-bubble:hover { transform: scale(1.1); background-color: #dbeafe; }
         #page-errors .question-bubble.error { background-color: #ef4444; color: white; border-color: #ef4444; transform: scale(1.05); }
         #page-errors .question-bubble.all-correct { background-color: #22c55e; color: white; border-color: #22c55e; transform: scale(1.05); }
+        #page-bubbles .bubbles-control-bar { max-width: 68rem; margin: 0 auto 1.5rem; padding: 0.9rem 1rem; border-radius: 1rem; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.9); box-shadow: 0 10px 24px rgba(30, 64, 175, 0.08); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1rem; }
+        #page-bubbles .bubbles-task-inline { display: flex; align-items: center; gap: 0.65rem; flex: 1 1 19rem; min-width: min(100%, 19rem); max-width: 32rem; }
+        #page-bubbles .bubbles-task-inline label { margin: 0; white-space: nowrap; }
+        #page-bubbles .bubbles-task-inline .tool-task-input { min-width: 0; }
+        #page-errors .errors-student-layout { align-items: flex-start; }
+        #page-errors .errors-student-panel { width: 100%; }
+        #page-errors .errors-question-panel { width: 100%; }
+        #page-errors .errors-student-grid { display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-start; gap: 0.38rem 0.42rem; max-height: none; overflow: visible; padding-right: 0; }
+        #page-errors .student-item { flex: 0 0 auto; width: clamp(3.65rem, 7vw, 4.25rem); }
+        #page-errors .errors-question-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.9rem; }
+        #page-errors .errors-count-control { display: flex; align-items: center; gap: 0.55rem; }
+        #page-errors .errors-count-input { width: 4.8rem; text-align: center; border-radius: 0.75rem; border: 2px solid rgba(147, 197, 253, 0.92); background: rgba(255,255,255,0.96); color: #1e40af; font-weight: 700; padding: 0.45rem 0.55rem; outline: none; }
+        #page-errors .errors-count-input:focus { border-color: rgba(59, 130, 246, 0.96); box-shadow: 0 0 0 4px rgba(59,130,246,0.15); }
+        @media (min-width: 768px) { #page-errors .errors-student-panel { width: 44%; } #page-errors .errors-question-panel { width: 56%; } #page-errors .errors-student-grid { justify-content: flex-start; gap: 0.35rem 0.38rem; } }
+        @media (min-width: 1024px) { #page-errors .errors-student-panel { width: 42%; } #page-errors .errors-question-panel { width: 58%; } }
+        @media (min-width: 1280px) { #page-errors .errors-student-panel { width: 40%; } #page-errors .errors-question-panel { width: 60%; } #page-errors .student-item { width: clamp(3.5rem, 5.6vw, 4rem); } }
+        .tool-task-panel { max-width: 42rem; margin: 0 auto 1rem; padding: 0.9rem 1rem; border-radius: 1rem; background: rgba(255,255,255,0.68); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.92); box-shadow: 0 10px 24px rgba(30, 64, 175, 0.08); }
+        .tool-task-input { width: 100%; padding: 0.65rem 0.85rem; border-radius: 0.85rem; border: 2px solid rgba(147, 197, 253, 0.92); background: rgba(255,255,255,0.92); color: #1e40af; font-weight: 600; outline: none; transition: all 0.2s ease; }
+        .tool-task-input:focus { border-color: rgba(59, 130, 246, 0.96); box-shadow: 0 0 0 4px rgba(59,130,246,0.15); }
         
         /* --- Page Tasks Styles --- */
         #page-tasks .task-grid-wrapper { width: 100%; overflow-x: auto; max-height: 75vh; }
@@ -253,6 +328,15 @@
             font-weight: 900;
             color: #475569;
         }
+        #page-dashboard .dashboard-glass{background:rgba(255,255,255,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.78);box-shadow:0 24px 60px rgba(24,49,83,.12)}
+        #page-dashboard .dashboard-chip{border-radius:999px;padding:.55rem .9rem;border:1px solid rgba(37,99,235,.18);font-weight:800;background:rgba(255,255,255,.82);color:#5f7088}
+        #page-dashboard .dashboard-chip.active{background:linear-gradient(135deg,#2563eb,#38bdf8);color:#fff;border-color:transparent}
+        #page-dashboard .dashboard-filter-input{border:1px solid rgba(37,99,235,.18);border-radius:.8rem;padding:.6rem .75rem;background:rgba(255,255,255,.9);width:100%}
+        #page-dashboard .dashboard-mini-track{height:.7rem;border-radius:999px;background:rgba(37,99,235,.08);overflow:hidden}
+        #page-dashboard .dashboard-mini-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#2563eb,#38bdf8)}
+        #page-dashboard table{width:100%;border-collapse:collapse;min-width:38rem}
+        #page-dashboard th,#page-dashboard td{padding:.75rem .85rem;border-bottom:1px solid rgba(24,49,83,.08);white-space:nowrap;text-align:left}
+        #page-dashboard th{position:sticky;top:0;background:rgba(255,255,255,.96)}
 
     </style>
 </head>
@@ -271,6 +355,7 @@
             <button class="nav-button whitespace-nowrap text-gray-600 font-bold py-2 px-3 sm:px-4 text-sm sm:text-base shrink-0" data-page="page-tasks">任务积分</button>
             <button class="nav-button whitespace-nowrap text-gray-600 font-bold py-2 px-3 sm:px-4 text-sm sm:text-base shrink-0" data-page="page-jigsaw">碎片拼图</button>
             <button class="nav-button whitespace-nowrap text-gray-600 font-bold py-2 px-3 sm:px-4 text-sm sm:text-base shrink-0" data-page="page-heatmap">座位热力图</button>
+            <button class="nav-button whitespace-nowrap text-gray-600 font-bold py-2 px-3 sm:px-4 text-sm sm:text-base shrink-0" data-page="page-dashboard">分类汇总</button>
         </div>
         
         <!-- 全局人数设置控制台 - 保持在最右侧 -->
@@ -328,10 +413,14 @@
                 <div class="flex justify-center items-center gap-3 sm:gap-4 mb-2"><img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[挑战图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-6xl font-bold">泡泡抢位</h1></div>
                 <p class="text-sm text-gray-500 mb-4 px-2">按学生完成顺序点击泡泡，可以中途暂停计时</p>
                 
-                <div class="max-w-2xl mx-auto bg-white/70 backdrop-blur-md rounded-2xl p-3 sm:p-5 mb-6 shadow-sm border border-white flex flex-wrap items-center justify-center gap-2 sm:gap-4">
-                    <button id="bubbles-start-btn" class="flex-1 sm:flex-none min-w-[120px] sm:min-w-[140px] bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 sm:py-2.5 px-4 sm:px-6 rounded-xl shadow-md transition-all active:scale-95 text-sm sm:text-base whitespace-nowrap">▶ 开始全部计时</button>
+                <div class="bubbles-control-bar">
+                    <button id="bubbles-start-btn" class="flex-1 sm:flex-none min-w-[120px] sm:min-w-[140px] bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 sm:py-2.5 px-4 sm:px-6 rounded-xl shadow-md transition-all active:scale-95 text-sm sm:text-base whitespace-nowrap">▶ 全部计时</button>
                     <button id="bubbles-pause-btn" class="flex-1 sm:flex-none min-w-[120px] sm:min-w-[140px] bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 sm:py-2.5 px-4 sm:px-6 rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base whitespace-nowrap" disabled>⏸ 全部暂停</button>
                     <button id="bubbles-reset-btn" class="flex-1 sm:flex-none min-w-[100px] sm:min-w-[120px] bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 sm:py-2.5 px-4 sm:px-6 rounded-xl shadow-md transition-all active:scale-95 text-sm sm:text-base whitespace-nowrap">↺ 全部重置</button>
+                    <div class="bubbles-task-inline">
+                        <label for="bubbles-task-name" class="text-sm font-bold text-gray-700">任务名</label>
+                        <input type="text" id="bubbles-task-name" class="tool-task-input text-sm sm:text-base" placeholder="请输入本次泡泡抢位任务名">
+                    </div>
                 </div>
             </header>
             <main class="container mx-auto max-w-[1400px] px-1 sm:px-2 md:px-4 pt-2">
@@ -382,15 +471,24 @@
         <!-- Page 4: 错题记录 -->
         <div id="page-errors" class="page-content">
             <header class="text-center mb-4 sm:mb-6 px-2"><div class="flex justify-center items-center gap-3 sm:gap-4"><img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[装饰图标]" class="h-16 sm:h-20 md:h-24"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-6xl font-bold">错题记录</h1></div><p id="errors-current-student-indicator" class="mt-2 text-sm sm:text-lg text-gray-600">请从左侧选择一个学生开始记录</p></header>
+            <div class="tool-task-panel">
+                <label for="errors-task-name" class="block text-sm font-bold text-gray-700 mb-2">任务名</label>
+                <input type="text" id="errors-task-name" class="tool-task-input text-sm sm:text-base" placeholder="请输入本次错题记录任务名">
+            </div>
             
-            <div class="flex flex-col md:flex-row gap-4 md:gap-6 max-w-[1400px] mx-auto px-2">
-                <aside class="w-full md:w-1/3 lg:w-1/4 bg-white p-3 sm:p-4 rounded-xl shadow-md">
+            <div class="errors-student-layout flex flex-col md:flex-row gap-4 md:gap-6 max-w-[1560px] mx-auto px-2">
+                <aside class="errors-student-panel bg-white p-3 sm:p-4 rounded-xl shadow-md">
                     <h2 class="text-base sm:text-xl font-semibold text-center mb-3 sm:mb-4 border-b pb-2 text-blue-800">学生列表</h2>
-                    <!-- 确保左侧学生列表也能自适应滚动或换行 -->
-                    <div id="errors-student-list" class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-3 lg:grid-cols-4 gap-1.5 sm:gap-2 max-h-[30vh] md:max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar"></div>
+                    <div id="errors-student-list" class="errors-student-grid"></div>
                 </aside>
-                <main class="w-full md:w-2/3 lg:w-3/4 bg-white p-3 sm:p-4 rounded-xl shadow-md">
-                    <h2 class="text-base sm:text-xl font-semibold text-center mb-3 sm:mb-4 border-b pb-2 text-blue-800">题目列表 (点击标记错题)</h2>
+                <main class="errors-question-panel bg-white p-3 sm:p-4 rounded-xl shadow-md">
+                    <div class="errors-question-toolbar border-b pb-2">
+                        <h2 class="text-base sm:text-xl font-semibold text-blue-800">题目列表 (点击标记错题)</h2>
+                        <div class="errors-count-control">
+                            <label for="errors-question-count" class="text-sm font-bold text-gray-700 whitespace-nowrap">题目数量</label>
+                            <input type="number" id="errors-question-count" class="errors-count-input text-sm sm:text-base" value="25" min="1" max="60">
+                        </div>
+                    </div>
                     <!-- 题目泡泡液态网格 -->
                     <div id="errors-question-bubbles" class="grid justify-items-center items-start" style="grid-template-columns: repeat(auto-fill, minmax(clamp(2.5rem, 6vw, 4rem), 1fr)); gap: clamp(0.5rem, 1.5vw, 1rem);"></div>
                 </main>
@@ -403,6 +501,10 @@
         <!-- Page 5: 任务积分 -->
         <div id="page-tasks" class="page-content">
             <header class="text-center py-4 md:py-8"><div class="flex justify-center items-center gap-3 sm:gap-4"><img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[任务图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">任务积分</h1></div><div class="text-center my-4"><button id="tasks-mode-toggle-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-xl transition-all active:scale-95 shadow-md text-sm sm:text-base">当前为：减分模式</button></div></header>
+            <div class="tool-task-panel">
+                <label for="tasks-task-name" class="block text-sm font-bold text-gray-700 mb-2">任务名</label>
+                <input type="text" id="tasks-task-name" class="tool-task-input text-sm sm:text-base" placeholder="请输入本次任务积分名称">
+            </div>
             <main class="container w-full max-w-full px-1 sm:px-4">
                 <div class="task-grid-wrapper rounded-xl shadow-sm border border-blue-100 bg-white">
                     <div id="tasks-grid-container" class="task-grid-container"></div>
@@ -438,6 +540,10 @@
                     <h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">座位热力图</h1>
                 </div>
             </header>
+            <div class="tool-task-panel">
+                <label for="heatmap-task-name" class="block text-sm font-bold text-gray-700 mb-2">任务名</label>
+                <input type="text" id="heatmap-task-name" class="tool-task-input text-sm sm:text-base" placeholder="请输入本次座位热力图任务名">
+            </div>
             <main class="container mx-auto max-w-5xl mt-4 px-2 overflow-x-auto hide-scrollbar pb-4">
                 <div class="flex justify-center items-center space-x-2 sm:space-x-8 min-w-[300px]">
                     <div id="heatmap-special-seat-left"></div>
@@ -501,7 +607,63 @@
             <input type="file" id="score-file-input" accept=".xlsx,.xls" multiple style="display: none;">
         </div>
 
+        <!-- ==================== page-dashboard start: 分类汇总看板 ==================== -->
+        <div id="page-dashboard" class="page-content">
+            <main class="mx-auto max-w-7xl space-y-6">
+                <section class="dashboard-glass rounded-[2rem] p-5 md:p-7">
+                    <h1 class="title-font main-title text-center text-4xl sm:text-5xl md:text-6xl font-black">分类汇总看板</h1>
+                    <p class="mt-3 text-center text-slate-600">把导出询问版的不同 Excel 分门别类统计，不再强行混成一张总分表。</p>
+                    <div class="mt-6 flex flex-wrap justify-center gap-3">
+                        <button id="dashboard-pick-folder-btn" class="rounded-full bg-orange-500 px-5 py-3 font-extrabold text-white shadow-md transition-all active:scale-95">选择汇总文件夹</button>
+                        <button id="dashboard-refresh-btn" class="rounded-full border border-blue-200 bg-white px-5 py-3 font-extrabold text-blue-700 shadow-sm transition-all active:scale-95" disabled>刷新数据</button>
+                        <button id="dashboard-export-btn" class="rounded-full border border-blue-200 bg-white px-5 py-3 font-extrabold text-blue-700 shadow-sm transition-all active:scale-95" disabled>导出当前模块汇总</button>
+                    </div>
+                    <div class="mt-5 flex flex-wrap gap-3 text-sm text-slate-600">
+                        <div>当前文件夹：<span id="dashboard-folder-name">未选择</span></div>
+                        <div>扫描结果：<span id="dashboard-scan-status">等待开始</span></div>
+                    </div>
+                    <div class="mt-5 grid gap-4 lg:grid-cols-[1.35fr_0.65fr]">
+                        <div class="dashboard-glass rounded-2xl p-4">
+                            <div class="font-bold text-slate-500">统计模块</div>
+                            <div id="dashboard-module-chip-list" class="mt-3 flex flex-wrap gap-2"></div>
+                        </div>
+                        <div id="dashboard-range-filter-box" class="dashboard-glass rounded-2xl p-4">
+                            <div class="font-bold text-slate-500">时间筛选</div>
+                            <div class="mt-3 flex flex-col gap-2 sm:flex-row">
+                                <input id="dashboard-filter-start-date" class="dashboard-filter-input" type="date">
+                                <input id="dashboard-filter-end-date" class="dashboard-filter-input" type="date">
+                            </div>
+                            <div class="mt-2 text-sm text-slate-500">日新阅读与泡泡抢位支持按日期区间筛选。</div>
+                        </div>
+                    </div>
+                </section>
+                <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                    <article class="dashboard-glass rounded-[1.5rem] p-5"><div id="dashboard-stat-label-1" class="text-sm font-bold text-slate-500">模块文件数</div><div id="dashboard-stat-value-1" class="mt-3 text-4xl font-black">0</div></article>
+                    <article class="dashboard-glass rounded-[1.5rem] p-5"><div id="dashboard-stat-label-2" class="text-sm font-bold text-slate-500">学生人数</div><div id="dashboard-stat-value-2" class="mt-3 text-4xl font-black">0</div></article>
+                    <article class="dashboard-glass rounded-[1.5rem] p-5"><div id="dashboard-stat-label-3" class="text-sm font-bold text-slate-500">记录数</div><div id="dashboard-stat-value-3" class="mt-3 text-4xl font-black">0</div></article>
+                    <article class="dashboard-glass rounded-[1.5rem] p-5"><div id="dashboard-stat-label-4" class="text-sm font-bold text-slate-500">核心指标</div><div id="dashboard-stat-value-4" class="mt-3 text-4xl font-black">0</div></article>
+                </section>
+                <section class="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
+                    <article class="dashboard-glass rounded-[1.5rem] p-5"><h2 id="dashboard-ranking-title" class="text-lg font-extrabold">核心排名</h2><div id="dashboard-ranking-list" class="mt-5 space-y-3"></div></article>
+                    <article class="dashboard-glass rounded-[1.5rem] p-5"><h2 id="dashboard-summary-title" class="text-lg font-extrabold">模块摘要</h2><div id="dashboard-summary-list" class="mt-5 space-y-3"></div></article>
+                </section>
+                <section class="dashboard-glass rounded-[1.5rem] p-5"><h2 id="dashboard-matrix-title" class="text-lg font-extrabold">完整明细</h2><div class="mt-5 overflow-auto rounded-2xl border border-slate-200"><table><thead><tr id="dashboard-matrix-head-row"></tr></thead><tbody id="dashboard-matrix-body"></tbody></table></div></section>
+                <section class="dashboard-glass rounded-[1.5rem] p-5"><h2 class="text-lg font-extrabold">文件扫描详情</h2><div class="mt-5 overflow-auto rounded-2xl border border-slate-200"><table><thead><tr><th>文件名</th><th>状态</th><th>识别信息</th><th>记录数</th></tr></thead><tbody id="dashboard-file-log-body"></tbody></table></div></section>
+            </main>
+        </div>
+        <!-- ==================== page-dashboard end: 分类汇总看板 ==================== -->
+
     </div>
+
+    <!-- ==================== export-toast start: 导出成功轻提示条 ==================== -->
+    <div id="export-toast" class="export-toast" aria-live="polite" aria-hidden="true">
+        <div class="text-sm font-bold text-slate-800" id="export-toast-message">导出成功。</div>
+        <div class="export-toast-actions">
+            <button type="button" class="export-toast-btn export-toast-btn-primary" id="export-toast-dashboard-btn">去分类汇总查看</button>
+            <button type="button" class="export-toast-btn export-toast-btn-secondary" id="export-toast-close-btn">关闭</button>
+        </div>
+    </div>
+    <!-- ==================== export-toast end: 导出成功轻提示条 ==================== -->
 
     <footer class="text-center py-2 text-gray-500 text-xs sm:text-sm fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm z-50 border-t border-gray-100">
         <p>有需要联系公众号：字里行间的算法</p>
@@ -517,7 +679,12 @@
         studentCount: 60, // 全局默认人数
         onCountChangeHandlers: [], // 订阅者列表：各App可以把刷新自身的函数推入此列表
         exportDirHandle: null,
-        exportDirRestorePromise: null
+        exportDirRestorePromise: null,
+        dashboardScanDirHandle: null,
+        dashboardScanDirRestorePromise: null,
+        exportToastTimer: null,
+        taskNameInputs: new Set(),
+        taskNameStorageKey: 'rixin-toolbox-last-task-name'
     };
 
     window.RixinToolbox.openExportDb = function() {
@@ -534,78 +701,103 @@
 
     window.RixinToolbox.persistExportDirHandle = async function(dirHandle) {
         if (!window.indexedDB || !dirHandle) return;
+        return window.RixinToolbox.persistDirectoryHandleByKey('exportDirHandle', dirHandle);
+    };
+
+    // 轻量通用目录句柄持久化：供导出目录与看板扫描目录复用
+    window.RixinToolbox.persistDirectoryHandleByKey = async function(storageKey, dirHandle) {
+        if (!window.indexedDB || !dirHandle || !storageKey) return;
         try {
             const db = await window.RixinToolbox.openExportDb();
             await new Promise((resolve, reject) => {
                 const tx = db.transaction('kv', 'readwrite');
-                tx.objectStore('kv').put(dirHandle, 'exportDirHandle');
+                tx.objectStore('kv').put(dirHandle, storageKey);
                 tx.oncomplete = resolve;
                 tx.onerror = () => reject(tx.error);
             });
             db.close();
         } catch (error) {
-            console.warn('导出目录持久化失败（不影响本次导出）:', error);
+            console.warn('目录持久化失败（不影响本次操作）:', error);
         }
     };
 
     window.RixinToolbox.restoreExportDirHandle = function() {
-        if (window.RixinToolbox.exportDirHandle) return Promise.resolve(window.RixinToolbox.exportDirHandle);
-        if (window.RixinToolbox.exportDirRestorePromise) return window.RixinToolbox.exportDirRestorePromise;
+        return window.RixinToolbox.restoreDirectoryHandleByKey('exportDirHandle', 'exportDirHandle', 'exportDirRestorePromise');
+    };
+
+    window.RixinToolbox.restoreDirectoryHandleByKey = function(storageKey, handleProp, promiseProp) {
+        if (window.RixinToolbox[handleProp]) return Promise.resolve(window.RixinToolbox[handleProp]);
+        if (window.RixinToolbox[promiseProp]) return window.RixinToolbox[promiseProp];
         if (!window.indexedDB) return Promise.resolve(null);
 
-        window.RixinToolbox.exportDirRestorePromise = (async () => {
+        window.RixinToolbox[promiseProp] = (async () => {
             try {
                 const db = await window.RixinToolbox.openExportDb();
                 const handle = await new Promise((resolve, reject) => {
                     const tx = db.transaction('kv', 'readonly');
-                    const req = tx.objectStore('kv').get('exportDirHandle');
+                    const req = tx.objectStore('kv').get(storageKey);
                     req.onsuccess = () => resolve(req.result || null);
                     req.onerror = () => reject(req.error);
                 });
                 db.close();
 
                 if (handle && handle.kind === 'directory') {
-                    window.RixinToolbox.exportDirHandle = handle;
+                    window.RixinToolbox[handleProp] = handle;
                     return handle;
                 }
             } catch (error) {
-                console.warn('读取历史导出目录失败，将改为手动选择。', error);
+                console.warn('读取历史目录失败，将改为手动选择。', error);
             }
             return null;
         })().finally(() => {
-            window.RixinToolbox.exportDirRestorePromise = null;
+            window.RixinToolbox[promiseProp] = null;
         });
 
-        return window.RixinToolbox.exportDirRestorePromise;
+        return window.RixinToolbox[promiseProp];
+    };
+
+    window.RixinToolbox.clearDirectoryHandleByKey = async function(storageKey, handleProp) {
+        if (handleProp) window.RixinToolbox[handleProp] = null;
+        if (!window.indexedDB || !storageKey) return;
+        try {
+            const db = await window.RixinToolbox.openExportDb();
+            await new Promise((resolve, reject) => {
+                const tx = db.transaction('kv', 'readwrite');
+                tx.objectStore('kv').delete(storageKey);
+                tx.oncomplete = resolve;
+                tx.onerror = () => reject(tx.error);
+            });
+            db.close();
+        } catch (error) {
+            console.warn('清理历史目录记录失败。', error);
+        }
+    };
+
+    window.RixinToolbox.ensureDirectoryHandlePermission = async function(dirHandle) {
+        if (!dirHandle) return null;
+        try {
+            if (typeof dirHandle.queryPermission === 'function') {
+                let permission = await dirHandle.queryPermission({ mode: 'readwrite' });
+                if (permission !== 'granted') permission = await dirHandle.requestPermission({ mode: 'readwrite' });
+                if (permission !== 'granted') return null;
+            }
+            return dirHandle;
+        } catch (error) {
+            console.warn('历史目录权限失效，将重新选择目录。', error);
+            return null;
+        }
     };
 
     window.RixinToolbox.ensureWritableExportDirHandle = async function() {
         let dirHandle = window.RixinToolbox.exportDirHandle || await window.RixinToolbox.restoreExportDirHandle();
-
-        if (dirHandle) {
-            try {
-                if (typeof dirHandle.queryPermission === 'function') {
-                    let permission = await dirHandle.queryPermission({ mode: 'readwrite' });
-                    if (permission !== 'granted') {
-                        permission = await dirHandle.requestPermission({ mode: 'readwrite' });
-                    }
-                    if (permission !== 'granted') {
-                        dirHandle = null;
-                        window.RixinToolbox.exportDirHandle = null;
-                    }
-                }
-            } catch (error) {
-                console.warn('历史目录权限失效，将重新选择目录。', error);
-                dirHandle = null;
-                window.RixinToolbox.exportDirHandle = null;
-            }
-        }
+        dirHandle = await window.RixinToolbox.ensureDirectoryHandlePermission(dirHandle);
+        if (!dirHandle) await window.RixinToolbox.clearDirectoryHandleByKey('exportDirHandle', 'exportDirHandle');
 
         if (!dirHandle) {
             alert('请先选择当前 HTML 所在文件夹。首次设置后，后续打开网页会自动尝试沿用该目录。');
             dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
             window.RixinToolbox.exportDirHandle = dirHandle;
-            await window.RixinToolbox.persistExportDirHandle(dirHandle);
+            await window.RixinToolbox.persistDirectoryHandleByKey('exportDirHandle', dirHandle);
         }
 
         return dirHandle;
@@ -699,6 +891,110 @@
         window.RixinToolbox.saveBlob(blob, filename);
     };
 
+    window.RixinToolbox.getLastTaskName = function() {
+        try {
+            return localStorage.getItem(window.RixinToolbox.taskNameStorageKey) || '';
+        } catch (error) {
+            return '';
+        }
+    };
+
+    window.RixinToolbox.setLastTaskName = function(taskName) {
+        const value = String(taskName || '').trim();
+        try {
+            localStorage.setItem(window.RixinToolbox.taskNameStorageKey, value);
+        } catch (error) {
+            console.warn('保存任务名失败，将仅在当前页保留。', error);
+        }
+        window.RixinToolbox.taskNameInputs.forEach((input) => {
+            if (input && input !== document.activeElement) input.value = value;
+        });
+    };
+
+    window.RixinToolbox.bindTaskNameInput = function(input) {
+        if (!input) return;
+        window.RixinToolbox.taskNameInputs.add(input);
+        const lastTaskName = window.RixinToolbox.getLastTaskName();
+        if (lastTaskName && !input.value.trim()) input.value = lastTaskName;
+        input.addEventListener('input', (event) => {
+            window.RixinToolbox.setLastTaskName(event.target.value);
+        });
+    };
+
+    window.RixinToolbox.buildExportFilename = function(moduleName, taskName, dateStr) {
+        const safeModule = String(moduleName || '').trim();
+        const safeTask = String(taskName || '').trim();
+        const safeDate = String(dateStr || '').trim();
+        return `${safeDate} ${safeModule}：${safeTask}.xlsx`;
+    };
+
+    window.RixinToolbox.buildExportInfoSheet = function(moduleName, taskName, dateStr, extraRows = []) {
+        return XLSX.utils.aoa_to_sheet([
+            ['模块类型', moduleName],
+            ['任务名称', taskName],
+            ['导出日期', dateStr],
+            ...extraRows
+        ]);
+    };
+
+    // --- Export Toast Methods: 导出成功轻提示条 ---
+    window.RixinToolbox.hideExportToast = function() {
+        const toast = document.getElementById('export-toast');
+        if (!toast) return;
+        if (window.RixinToolbox.exportToastTimer) {
+            clearTimeout(window.RixinToolbox.exportToastTimer);
+            window.RixinToolbox.exportToastTimer = null;
+        }
+        toast.classList.remove('is-visible');
+        toast.setAttribute('aria-hidden', 'true');
+        toast.dataset.module = '';
+    };
+
+    window.RixinToolbox.executeDashboardJump = async function(moduleName) {
+        if (typeof window.RixinToolbox.switchPage === 'function') {
+            window.RixinToolbox.switchPage('page-dashboard');
+        }
+        if (!window.RixinToolbox.dashboard || typeof window.RixinToolbox.dashboard.openModule !== 'function') {
+            return false;
+        }
+        return window.RixinToolbox.dashboard.openModule(moduleName);
+    };
+
+    window.RixinToolbox.showExportToast = function(moduleName, message) {
+        const moduleLabelMap = { reading: '日新阅读', bubbles: '泡泡抢位', score: '积分登记', tasks: '任务积分', errors: '错题记录', heatmap: '座位热力图', jigsaw: '碎片拼图' };
+        const moduleLabel = moduleLabelMap[moduleName] || '当前模块';
+        const toast = document.getElementById('export-toast');
+        const messageEl = document.getElementById('export-toast-message');
+        const dashboardBtn = document.getElementById('export-toast-dashboard-btn');
+        const closeBtn = document.getElementById('export-toast-close-btn');
+        if (!toast || !messageEl || !dashboardBtn || !closeBtn) return false;
+
+        window.RixinToolbox.hideExportToast();
+        toast.dataset.module = moduleName;
+        messageEl.textContent = message || `导出成功，可去分类汇总查看「${moduleLabel}」。`;
+        toast.classList.add('is-visible');
+        toast.setAttribute('aria-hidden', 'false');
+
+        dashboardBtn.onclick = async () => {
+            window.RixinToolbox.hideExportToast();
+            await window.RixinToolbox.executeDashboardJump(moduleName);
+        };
+        closeBtn.onclick = () => {
+            window.RixinToolbox.hideExportToast();
+        };
+
+        window.RixinToolbox.exportToastTimer = setTimeout(() => {
+            window.RixinToolbox.hideExportToast();
+        }, 7000);
+        return true;
+    };
+
+    window.RixinToolbox.offerDashboardJump = function(moduleName) {
+        const moduleLabelMap = { reading: '日新阅读', bubbles: '泡泡抢位', score: '积分登记', tasks: '任务积分', errors: '错题记录', heatmap: '座位热力图', jigsaw: '碎片拼图' };
+        const moduleLabel = moduleLabelMap[moduleName] || '当前模块';
+        return window.RixinToolbox.showExportToast(moduleName, `导出成功，可去分类汇总查看「${moduleLabel}」。`);
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
         const globalCountInput = document.getElementById('global-student-count');
         if (globalCountInput) {
@@ -719,7 +1015,7 @@
 (function() {
     const navButtons = document.querySelectorAll('.nav-button');
     const pages = document.querySelectorAll('.page-content');
-        function switchPage(pageId) {
+        window.RixinToolbox.switchPage = function(pageId) {
             pages.forEach(page => page.classList.toggle('active', page.id === pageId));
             navButtons.forEach(button => button.classList.toggle('active', button.dataset.page === pageId));
             document.querySelectorAll('[id$="-export-btn"].fixed').forEach(btn => {
@@ -729,10 +1025,10 @@
             if (activeExportBtn && activeExportBtn.classList.contains('fixed')) {
                 activeExportBtn.classList.remove('hidden');
             }
-        }
-        navButtons.forEach(button => button.addEventListener('click', () => switchPage(button.dataset.page)));
+        };
+        navButtons.forEach(button => button.addEventListener('click', () => window.RixinToolbox.switchPage(button.dataset.page)));
         const firstNavButton = navButtons[0];
-        if (firstNavButton) switchPage(firstNavButton.dataset.page);
+        if (firstNavButton) window.RixinToolbox.switchPage(firstNavButton.dataset.page);
     })();
     
     // --- App 1: 日新阅读 ---
@@ -905,6 +1201,7 @@
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "阅读记录");
             window.RixinToolbox.saveWorkbook(wb, `${headerName}.xlsx`);
+            window.RixinToolbox.offerDashboardJump('reading');
         });
 
         const durationBtns = container.querySelectorAll('.rixin-duration-button');
@@ -1014,10 +1311,13 @@
               startBtn = container.querySelector('#bubbles-start-btn'), 
               pauseBtn = container.querySelector('#bubbles-pause-btn'), 
               resetBtn = container.querySelector('#bubbles-reset-btn'), 
-              exportBtn = container.querySelector('#bubbles-export-btn');
+              exportBtn = container.querySelector('#bubbles-export-btn'),
+              taskNameInput = container.querySelector('#bubbles-task-name');
 
         function formatTime(ms) { const s = Math.floor(ms / 1000); return `${String(Math.floor(s/3600)).padStart(2,'0')}:${String(Math.floor((s%3600)/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; }
         const numberToChineseOrdinal = (num) => { const N = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]; if (num <= 10) return `第${N[num]}`; if (num < 20) return `第十${N[num % 10] || ''}`; const ten = Math.floor(num/10), one = num % 10; return `第${N[ten]}十${one > 0 ? N[one] : ''}`; };
+        const getLocalDateYYYYMMDD = (d = new Date()) => { const y = d.getFullYear(); const m = String(d.getMonth() + 1).padStart(2, '0'); const day = String(d.getDate()).padStart(2, '0'); return `${y}-${m}-${day}`; };
+        const sanitizeTaskName = (name) => String(name || '').trim().replace(/[\/\\:\*\?"<>\|]/g, '').replace(/\s+/g, ' ').trim();
         
         function renderBubbles() { 
             if(!bubblesContainer) return; 
@@ -1152,7 +1452,7 @@
             
             if(startBtn) { 
                 startBtn.disabled = false; 
-                startBtn.innerHTML = '▶ 开始全部计时'; 
+                startBtn.innerHTML = '▶ 全部计时'; 
             } 
             if(pauseBtn) {
                 pauseBtn.disabled = true;
@@ -1185,6 +1485,9 @@
         if(resetBtn) resetBtn.addEventListener('click', initBubbles);
 
         if(exportBtn) exportBtn.addEventListener('click', () => { 
+            const taskName = sanitizeTaskName(taskNameInput?.value || '');
+            if (!taskName) return alert('请先填写本次泡泡抢位的任务名。');
+            window.RixinToolbox.setLastTaskName(taskName);
             const data = allBubblesData.map(b => { 
                 let currentElapsed = b.elapsed;
                 if(b.isRunning && !b.selected) {
@@ -1209,9 +1512,15 @@
             const ws = XLSX.utils.json_to_sheet(data); 
             const wb = XLSX.utils.book_new(); 
             XLSX.utils.book_append_sheet(wb, ws, "抢位记录"); 
-            window.RixinToolbox.saveWorkbook(wb, `泡泡抢位记录_${new Date().toISOString().slice(0,10)}.xlsx`); 
+            const exportDate = getLocalDateYYYYMMDD();
+            XLSX.utils.book_append_sheet(wb, window.RixinToolbox.buildExportInfoSheet('泡泡抢位', taskName, exportDate, [
+                ['学生人数', window.RixinToolbox.studentCount]
+            ]), "导出信息");
+            window.RixinToolbox.saveWorkbook(wb, window.RixinToolbox.buildExportFilename('泡泡抢位', taskName, exportDate)); 
+            window.RixinToolbox.offerDashboardJump('bubbles');
         });
 
+        window.RixinToolbox.bindTaskNameInput(taskNameInput);
         initBubbles();
     })();
 
@@ -1327,9 +1636,16 @@
     // --- App 4: 错题记录 ---
     (function() {
         const container = document.getElementById('page-errors'); if (!container) return;
-        const studentListContainer = container.querySelector('#errors-student-list'), questionBubblesContainer = container.querySelector('#errors-question-bubbles'), exportBtn = container.querySelector('#errors-export-btn'), currentStudentIndicator = container.querySelector('#errors-current-student-indicator');
-        const NUM_QUESTIONS = 25; 
+        const studentListContainer = container.querySelector('#errors-student-list'), questionBubblesContainer = container.querySelector('#errors-question-bubbles'), exportBtn = container.querySelector('#errors-export-btn'), currentStudentIndicator = container.querySelector('#errors-current-student-indicator'), taskNameInput = container.querySelector('#errors-task-name'), questionCountInput = container.querySelector('#errors-question-count');
+        let questionCount = 25; 
         let studentData = {}, currentStudentId = null;
+        const getLocalDateYYYYMMDD = (d = new Date()) => { const y = d.getFullYear(); const m = String(d.getMonth() + 1).padStart(2, '0'); const day = String(d.getDate()).padStart(2, '0'); return `${y}-${m}-${day}`; };
+        const sanitizeTaskName = (name) => String(name || '').trim().replace(/[\/\\:\*\?"<>\|]/g, '').replace(/\s+/g, ' ').trim();
+        const normalizeQuestionCount = (value) => {
+            const parsed = parseInt(value, 10);
+            if (Number.isNaN(parsed)) return questionCount;
+            return Math.min(60, Math.max(1, parsed));
+        };
 
         function loadStudentErrors() { if (!currentStudentId) return; const errors = studentData[currentStudentId] || []; document.querySelectorAll('#page-errors .question-bubble').forEach(bubble => { const qId = parseInt(bubble.dataset.questionId); bubble.classList.remove('error', 'all-correct'); if (errors.includes(qId)) bubble.classList.add(qId === 0 ? 'all-correct' : 'error'); }); }
         
@@ -1346,7 +1662,7 @@
                 const studentItem = document.createElement('div'); 
                 studentItem.textContent = `${i}号`; 
                 studentItem.dataset.studentId = i; 
-                studentItem.className = 'student-item p-1 sm:p-2 text-center rounded-md cursor-pointer transition-colors text-xs sm:text-sm md:text-base border border-blue-50 sm:border-none'; 
+                studentItem.className = 'student-item w-[4.2rem] sm:w-[4.6rem] p-1.5 sm:p-2 text-center rounded-md cursor-pointer transition-colors text-xs sm:text-sm md:text-base border border-blue-100 bg-slate-50/70'; 
                 
                 if (studentData[i] && studentData[i].length > 0) {
                     studentItem.classList.add('recorded');
@@ -1363,46 +1679,68 @@
                 }
             } 
             
-            if (questionBubblesContainer.innerHTML === '') {
-                for (let i = 0; i <= NUM_QUESTIONS; i++) { 
-                    const bubble = document.createElement('div'); 
-                    bubble.textContent = i === 0 ? '全对' : i; 
-                    bubble.dataset.questionId = i; 
-                    bubble.className = `question-bubble flex items-center justify-center w-full aspect-square text-lg sm:text-xl md:text-2xl font-bold rounded-full cursor-pointer max-w-[4rem] max-h-[4rem] ${i === 0 ? 'text-sm sm:text-base' : ''}`; 
-                    bubble.addEventListener('click', () => toggleQuestionError(i)); 
-                    questionBubblesContainer.appendChild(bubble); 
-                }
+            questionBubblesContainer.innerHTML = '';
+            for (let i = 0; i <= questionCount; i++) { 
+                const bubble = document.createElement('div'); 
+                bubble.textContent = i === 0 ? '全对' : i; 
+                bubble.dataset.questionId = i; 
+                bubble.className = `question-bubble flex items-center justify-center w-full aspect-square text-lg sm:text-xl md:text-2xl font-bold rounded-full cursor-pointer max-w-[4rem] max-h-[4rem] ${i === 0 ? 'text-sm sm:text-base' : ''}`; 
+                bubble.addEventListener('click', () => toggleQuestionError(i)); 
+                questionBubblesContainer.appendChild(bubble); 
             }
+            loadStudentErrors();
         }
 
         window.RixinToolbox.onCountChangeHandlers.push(initialize);
 
+        if (questionCountInput) {
+            questionCountInput.value = String(questionCount);
+            questionCountInput.addEventListener('change', () => {
+                questionCount = normalizeQuestionCount(questionCountInput.value);
+                questionCountInput.value = String(questionCount);
+                initialize();
+            });
+        }
+
         if(exportBtn) exportBtn.addEventListener('click', () => { 
+            const taskName = sanitizeTaskName(taskNameInput?.value || '');
+            if (!taskName) return alert('请先填写本次错题记录的任务名。');
+            window.RixinToolbox.setLastTaskName(taskName);
             const numStudents = window.RixinToolbox.studentCount;
-            let csvContent = ''; 
-            const headers = ['学生号', ...Array.from({length: NUM_QUESTIONS + 1}, (_, i) => i === 0 ? '全对' : `第${i}题`), '错题总计']; csvContent += headers.join(',') + '\r\n'; 
-            const columnTotals = Array(NUM_QUESTIONS + 1).fill(0); 
+            const rows = [];
+            const headers = ['学生号', ...Array.from({length: questionCount + 1}, (_, i) => i === 0 ? '全对' : `第${i}题`), '错题总计'];
+            rows.push(headers);
+            const columnTotals = Array(questionCount + 1).fill(0); 
             for (let sId = 1; sId <= numStudents; sId++) { 
                 const errors = studentData[sId] || []; const row = [sId]; let rowTotal = 0; 
-                for(let qId=0; qId <= NUM_QUESTIONS; qId++) { 
-                    if(errors.includes(qId)) { row.push('1'); columnTotals[qId]++; if (qId !== 0) rowTotal++; } else { row.push(''); } 
+                for(let qId=0; qId <= questionCount; qId++) { 
+                    if(errors.includes(qId)) { row.push(1); columnTotals[qId]++; if (qId !== 0) rowTotal++; } else { row.push(''); } 
                 } 
-                row.push(errors.includes(0) ? '0' : rowTotal); csvContent += row.join(',') + '\r\n'; 
+                row.push(errors.includes(0) ? 0 : rowTotal); rows.push(row); 
             } 
-            const totalRow = ['各题错误总计', ...columnTotals, columnTotals.slice(1).reduce((a, b) => a + b, 0)]; 
-            csvContent += totalRow.join(',') + '\r\n'; 
-            window.RixinToolbox.saveTextFile(csvContent, `学生错题统计_${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv;charset=utf-8'); 
+            rows.push(['各题错误总计', ...columnTotals, columnTotals.slice(1).reduce((a, b) => a + b, 0)]); 
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "错题记录");
+            const exportDate = getLocalDateYYYYMMDD();
+            XLSX.utils.book_append_sheet(wb, window.RixinToolbox.buildExportInfoSheet('错题记录', taskName, exportDate, [
+                ['学生人数', numStudents]
+            ]), "导出信息");
+            window.RixinToolbox.saveWorkbook(wb, window.RixinToolbox.buildExportFilename('错题记录', taskName, exportDate)); 
+            window.RixinToolbox.offerDashboardJump('errors');
         });
         
+        window.RixinToolbox.bindTaskNameInput(taskNameInput);
         initialize();
     })();
     
     // --- App 5: 任务积分 ---
     (function() {
         const container = document.getElementById('page-tasks'); if (!container) return;
-        const gridContainer = container.querySelector('#tasks-grid-container'), exportBtn = container.querySelector('#tasks-export-btn'), modeToggleBtn = container.querySelector('#tasks-mode-toggle-btn');
+        const gridContainer = container.querySelector('#tasks-grid-container'), exportBtn = container.querySelector('#tasks-export-btn'), modeToggleBtn = container.querySelector('#tasks-mode-toggle-btn'), taskNameInput = container.querySelector('#tasks-task-name');
         const NUM_TASKS = 15; 
         let scoreData = {}, isDecrementMode = true;
+        const getLocalDateYYYYMMDD = (d = new Date()) => { const y = d.getFullYear(); const m = String(d.getMonth() + 1).padStart(2, '0'); const day = String(d.getDate()).padStart(2, '0'); return `${y}-${m}-${day}`; };
+        const sanitizeTaskName = (name) => String(name || '').trim().replace(/[\/\\:\*\?"<>\|]/g, '').replace(/\s+/g, ' ').trim();
 
         function handleCellClick(e) { const cell=e.target,s=cell.dataset.student,t=cell.dataset.task,key=`s${s}-t${t}`; let score=scoreData[key]; if(isDecrementMode){score--;if(score<0)score=0;}else{score++;if(score>3)score=3;} scoreData[key]=score; cell.textContent=score; cell.className='score-cell'; cell.classList.add(`score-${score}`); }
         function toggleMode() { isDecrementMode=!isDecrementMode; if(isDecrementMode){modeToggleBtn.textContent='当前为：减分模式';modeToggleBtn.classList.remove('bg-green-500','hover:bg-green-600');modeToggleBtn.classList.add('bg-blue-500','hover:bg-blue-600');}else{modeToggleBtn.textContent='当前为：加分模式';modeToggleBtn.classList.remove('bg-blue-500','hover:bg-blue-600');modeToggleBtn.classList.add('bg-green-500','hover:bg-green-600');} }
@@ -1430,6 +1768,9 @@
         window.RixinToolbox.onCountChangeHandlers.push(initializeGrid);
 
         if(exportBtn) exportBtn.addEventListener('click',()=>{ 
+            const taskName = sanitizeTaskName(taskNameInput?.value || '');
+            if (!taskName) return alert('请先填写本次任务积分的任务名。');
+            window.RixinToolbox.setLastTaskName(taskName);
             const numStudents = window.RixinToolbox.studentCount;
             const data=[]; const header=['学号']; 
             for(let i=1;i<=NUM_TASKS;i++)header.push(`任务 ${i}`); 
@@ -1443,10 +1784,15 @@
                 } 
                 row.push(total); data.push(row);
             } 
-            const ws=XLSX.utils.aoa_to_sheet(data); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"任务积分记录"); window.RixinToolbox.saveWorkbook(wb,`任务积分记录_${new Date().toISOString().slice(0,10)}.xlsx`); 
+            const exportDate = getLocalDateYYYYMMDD();
+            const ws=XLSX.utils.aoa_to_sheet(data); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,"任务积分记录"); XLSX.utils.book_append_sheet(wb, window.RixinToolbox.buildExportInfoSheet('任务积分', taskName, exportDate, [
+                ['学生人数', numStudents]
+            ]), "导出信息"); window.RixinToolbox.saveWorkbook(wb, window.RixinToolbox.buildExportFilename('任务积分', taskName, exportDate)); 
+            window.RixinToolbox.offerDashboardJump('tasks');
         });
         
         if(modeToggleBtn) modeToggleBtn.addEventListener('click', toggleMode);
+        window.RixinToolbox.bindTaskNameInput(taskNameInput);
         initializeGrid();
     })();
 
@@ -1539,11 +1885,14 @@
         const specialSeatRight = container.querySelector('#heatmap-special-seat-right');
         const modeToggleBtn = container.querySelector('#heatmap-mode-toggle-btn');
         const exportBtn = container.querySelector('#heatmap-export-btn');
+        const taskNameInput = container.querySelector('#heatmap-task-name');
         
         const NUM_GROUPS = 4, ROWS_PER_GROUP = 7, SEATS_PER_ROW = 2, SPECIAL_SEATS = 2;
         let heatmapData = {}; let heatmapLog = []; let isIncrementMode = true;
 
         function formatTimestamp(date) { const Y = date.getFullYear(); const M = String(date.getMonth() + 1).padStart(2, '0'); const D = String(date.getDate()).padStart(2, '0'); const h = String(date.getHours()).padStart(2, '0'); const m = String(date.getMinutes()).padStart(2, '0'); const s = String(date.getSeconds()).padStart(2, '0'); return `${Y}-${M}-${D} ${h}:${m}:${s}`; }
+        function getLocalDateYYYYMMDD(d = new Date()) { const y = d.getFullYear(); const m = String(d.getMonth() + 1).padStart(2, '0'); const day = String(d.getDate()).padStart(2, '0'); return `${y}-${m}-${day}`; }
+        function sanitizeTaskName(name) { return String(name || '').trim().replace(/[\/\\:\*\?"<>\|]/g, '').replace(/\s+/g, ' ').trim(); }
         function getSeatName(seatId) { const parts = seatId.split('-'); if (parts[1] === 'g') { const group = parts[2]; const row = parts[3].slice(1); const side = parts[4].slice(1) === '1' ? '左' : '右'; return `第${group}组-第${row}排-${side}`; } else { return `讲台旁-${parts[2] === '1' ? '左' : '右'}`; } }
         function updateGroupTotal(groupId) { let total = 0; for (let r = 1; r <= ROWS_PER_GROUP; r++) { for (let s = 1; s <= SEATS_PER_ROW; s++) { const seatId = `seat-g-${groupId}-r${r}-s${s}`; if(heatmapData[seatId] !== undefined) total += heatmapData[seatId]; } } const totalEl = document.getElementById(`group-total-${groupId}`); if (totalEl) totalEl.textContent = `本组总分: ${total}`; }
         function updateAllGroupTotals() { for (let g = 1; g <= NUM_GROUPS; g++) updateGroupTotal(g); }
@@ -1573,6 +1922,9 @@
         function toggleMode() { isIncrementMode = !isIncrementMode; if (isIncrementMode) { modeToggleBtn.textContent = '当前为：加分模式'; modeToggleBtn.classList.remove('bg-red-500', 'hover:bg-red-600'); modeToggleBtn.classList.add('bg-blue-500', 'hover:bg-blue-600'); } else { modeToggleBtn.textContent = '当前为：减分模式'; modeToggleBtn.classList.remove('bg-blue-500', 'hover:bg-blue-600'); modeToggleBtn.classList.add('bg-red-500', 'hover:bg-red-600'); } }
         
         if(exportBtn) exportBtn.addEventListener('click', () => {
+            const taskName = sanitizeTaskName(taskNameInput?.value || '');
+            if (!taskName) return alert('请先填写本次座位热力图的任务名。');
+            window.RixinToolbox.setLastTaskName(taskName);
             const layoutData = [];
             let classTotalScore = 0;
             const totalCols = 11;
@@ -1652,10 +2004,16 @@
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, layoutWorksheet, "座位热力图");
             XLSX.utils.book_append_sheet(workbook, logWorksheet, "详细操作日志");
-            window.RixinToolbox.saveWorkbook(workbook, `座位热力图记录_${new Date().toISOString().slice(0,10)}.xlsx`);
+            const exportDate = getLocalDateYYYYMMDD();
+            XLSX.utils.book_append_sheet(workbook, window.RixinToolbox.buildExportInfoSheet('座位热力图', taskName, exportDate, [
+                ['日志条数', heatmapLog.length]
+            ]), "导出信息");
+            window.RixinToolbox.saveWorkbook(workbook, window.RixinToolbox.buildExportFilename('座位热力图', taskName, exportDate));
+            window.RixinToolbox.offerDashboardJump('heatmap');
         });
 
         if(modeToggleBtn) modeToggleBtn.addEventListener('click', toggleMode);
+        window.RixinToolbox.bindTaskNameInput(taskNameInput);
         renderLayout();
     })();
     
@@ -1781,8 +2139,9 @@
             const taskName = sanitizeTaskName(rawTask);
             if (!taskName) return alert('任务名称只包含非法字符，请重新输入。');
             if (typeof XLSX === 'undefined') return alert('导出组件 XLSX 未加载成功。请检查网络或刷新后重试。');
+            window.RixinToolbox.setLastTaskName(taskName);
 
-            const headerName = `${dateStr}${taskName}`;
+            const headerName = `${dateStr} 积分登记：${taskName}`;
             const rows = [[headerName, '学号', '分数']];
             const count = window.RixinToolbox.studentCount;
             for (let i = 1; i <= count; i++) {
@@ -1792,7 +2151,11 @@
             const ws = XLSX.utils.aoa_to_sheet(rows);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'records');
-            window.RixinToolbox.saveWorkbook(wb, `${headerName}.xlsx`);
+            XLSX.utils.book_append_sheet(wb, window.RixinToolbox.buildExportInfoSheet('积分登记', taskName, dateStr, [
+                ['学生人数', count]
+            ]), '导出信息');
+            window.RixinToolbox.saveWorkbook(wb, window.RixinToolbox.buildExportFilename('积分登记', taskName, dateStr));
+            window.RixinToolbox.offerDashboardJump('score');
         }
 
         async function mergeHistoricalScores() {
@@ -1917,6 +2280,7 @@
 
         function init() {
             if (dateInput) dateInput.value = getLocalDateYYYYMMDD(new Date());
+            window.RixinToolbox.bindTaskNameInput(taskInput);
             updateDefaultScoreDisplay();
             renderBubbles();
 
@@ -1934,6 +2298,534 @@
         init();
     })();
 
+    // ============================================
+    // --- App Dashboard: 分类汇总看板 ---
+    // ============================================
+    (function () {
+        const container = document.getElementById('page-dashboard');
+        if (!container) return;
+
+        const META = { reading: '日新阅读', bubbles: '泡泡抢位', score: '积分登记', tasks: '任务积分', errors: '错题记录', heatmap: '座位热力图', jigsaw: '碎片拼图' };
+        const STATE = { dir: null, active: 'reading', start: '', end: '', modules: {}, logs: [] };
+        const VIEW_STORAGE_KEY = 'rixin-dashboard-view-state';
+        const $ = (id) => document.getElementById(id);
+        const text = (v) => String(v ?? '').trim();
+        const key = (v) => text(v).replace(/\s+/g, '');
+        const num = (v) => Number(v || 0);
+        const fmt = (v) => new Intl.NumberFormat('zh-CN').format(Number(v || 0));
+        const esc = (v) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const el = {
+            folder: $('dashboard-folder-name'),
+            status: $('dashboard-scan-status'),
+            pick: $('dashboard-pick-folder-btn'),
+            refresh: $('dashboard-refresh-btn'),
+            export: $('dashboard-export-btn'),
+            chips: $('dashboard-module-chip-list'),
+            range: $('dashboard-range-filter-box'),
+            start: $('dashboard-filter-start-date'),
+            end: $('dashboard-filter-end-date'),
+            ranking: $('dashboard-ranking-list'),
+            summary: $('dashboard-summary-list'),
+            head: $('dashboard-matrix-head-row'),
+            body: $('dashboard-matrix-body'),
+            logs: $('dashboard-file-log-body')
+        };
+
+        function resetModules() { STATE.modules = Object.fromEntries(Object.keys(META).map(name => [name, { files: [] }])); }
+        function saveViewState() {
+            try {
+                localStorage.setItem(VIEW_STORAGE_KEY, JSON.stringify({ active: STATE.active, start: STATE.start, end: STATE.end }));
+            } catch (error) {
+                console.warn('保存分类汇总视图状态失败：', error);
+            }
+        }
+        function restoreViewState() {
+            try {
+                const raw = localStorage.getItem(VIEW_STORAGE_KEY);
+                if (raw) {
+                    const saved = JSON.parse(raw);
+                    if (saved && typeof saved === 'object') {
+                        if (META[saved.active]) STATE.active = saved.active;
+                        STATE.start = text(saved.start);
+                        STATE.end = text(saved.end);
+                    }
+                }
+            } catch (error) {
+                console.warn('恢复分类汇总视图状态失败：', error);
+            }
+            el.start.value = STATE.start;
+            el.end.value = STATE.end;
+        }
+        function dateOf(value) { const m = text(value).match(/(20\d{2})[-_年](\d{1,2})[-_月](\d{1,2})/); return m ? `${m[1]}-${String(m[2]).padStart(2, '0')}-${String(m[3]).padStart(2, '0')}` : ''; }
+        function rankOf(value) { const m = text(value).match(/第\s*(\d+)\s*名/); return m ? Number(m[1]) : null; }
+        function normalizeModuleType(value) { const map = { '日新阅读': 'reading', '泡泡抢位': 'bubbles', '积分登记': 'score', '任务积分': 'tasks', '错题记录': 'errors', '座位热力图': 'heatmap', '碎片拼图': 'jigsaw' }; return map[text(value)] || ''; }
+        function readSheetRows(workbook, sheetName) { const sheet = workbook.Sheets[sheetName]; return sheet ? XLSX.utils.sheet_to_json(sheet, { header: 1, raw: true, defval: '' }) : []; }
+        function parseExportMeta(workbook, fileName) {
+            const infoRows = readSheetRows(workbook, '导出信息');
+            const info = { moduleType: '', taskName: '', exportDate: '', fileLabel: '', source: 'fallback', sourceType: '', sourceModule: '' };
+            if (infoRows.length) {
+                infoRows.forEach((row) => {
+                    const label = text(row[0]);
+                    const value = text(row[1]);
+                    if (label === '模块类型') info.moduleType = normalizeModuleType(value);
+                    if (label === '任务名称') info.taskName = value;
+                    if (label === '导出日期' || label === '日期') info.exportDate = value || dateOf(fileName);
+                    if (label === '来源类型') info.sourceType = value;
+                    if (label === '来源模块') info.sourceModule = value;
+                });
+                info.source = 'sheet';
+            }
+            if (!info.exportDate) info.exportDate = dateOf(fileName);
+            if (!info.taskName) {
+                const m = text(fileName).match(/：([^\.]+)\.xlsx$/);
+                if (m) info.taskName = text(m[1]);
+            }
+            const moduleLabel = info.moduleType ? META[info.moduleType] : '';
+            info.fileLabel = [info.exportDate, moduleLabel, info.taskName].filter(Boolean).join(' · ');
+            return info;
+        }
+        function availableModules() { return Object.keys(META).filter(name => STATE.modules[name].files.length); }
+        function currentModule() { const list = availableModules(); if (!list.length) return ''; if (!list.includes(STATE.active)) { STATE.active = list[0]; saveViewState(); } return STATE.active; }
+        function inRange(date) { return (!STATE.start || !date || date >= STATE.start) && (!STATE.end || !date || date <= STATE.end); }
+        function emptyBox(message) { return `<div class="rounded-2xl border border-dashed border-slate-300 px-5 py-8 text-center text-slate-500">${esc(message)}</div>`; }
+        function metricCard(rank, title, subtitle, value, label, weight, maxWeight) {
+            const percent = Math.max(8, (weight / (maxWeight || 1)) * 100);
+            return `<div class="rounded-2xl border border-slate-200 bg-white/75 p-4"><div class="flex items-center justify-between gap-3"><div class="flex items-center gap-3"><div class="flex h-11 w-11 items-center justify-center rounded-full bg-orange-100 text-lg font-black text-orange-600">${rank ? `#${rank}` : ''}</div><div><div class="text-lg font-black text-slate-800">${esc(title)}</div><div class="text-sm text-slate-500">${esc(subtitle)}</div></div></div><div class="text-right"><div class="text-2xl font-black text-slate-800">${esc(value)}</div><div class="text-sm text-slate-500">${esc(label)}</div></div></div><div class="dashboard-mini-track mt-4"><div class="dashboard-mini-fill" style="width:${percent}%"></div></div></div>`;
+        }
+
+        async function readWorkbook(file) { const data = await file.arrayBuffer(); return XLSX.read(data, { type: 'array' }); }
+
+        async function pickFolder() {
+            if (!window.showDirectoryPicker) throw new Error('当前浏览器不支持直接选择文件夹，请用新版 Edge 或 Chrome 打开。');
+            STATE.dir = await window.showDirectoryPicker();
+            el.folder.textContent = STATE.dir.name || '已选择文件夹';
+            el.refresh.disabled = false;
+            el.status.textContent = '文件夹已选择，正在扫描...';
+            window.RixinToolbox.dashboardScanDirHandle = STATE.dir;
+            await window.RixinToolbox.persistDirectoryHandleByKey('dashboardScanDirHandle', STATE.dir);
+            await scanFolder();
+        }
+
+        async function tryRestoreLastFolder() {
+            let restored = window.RixinToolbox.dashboardScanDirHandle || await window.RixinToolbox.restoreDirectoryHandleByKey('dashboardScanDirHandle', 'dashboardScanDirHandle', 'dashboardScanDirRestorePromise');
+            restored = await window.RixinToolbox.ensureDirectoryHandlePermission(restored);
+            if (!restored) {
+                await window.RixinToolbox.clearDirectoryHandleByKey('dashboardScanDirHandle', 'dashboardScanDirHandle');
+                el.folder.textContent = '未选择';
+                el.status.textContent = '未恢复到可用文件夹，请重新选择汇总文件夹';
+                el.refresh.disabled = true;
+                return false;
+            }
+            STATE.dir = restored;
+            window.RixinToolbox.dashboardScanDirHandle = restored;
+            el.folder.textContent = restored.name || '已恢复历史文件夹';
+            el.status.textContent = '已恢复上次文件夹，可直接刷新或继续使用';
+            el.refresh.disabled = false;
+            return true;
+        }
+
+        function classifyWorkbook(workbook, fileName) {
+            const meta = parseExportMeta(workbook, fileName);
+            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            const rows = firstSheet ? XLSX.utils.sheet_to_json(firstSheet, { header: 1, raw: true, defval: '' }) : [];
+            const header = (rows[0] || []).map(text);
+            const normalized = header.map(key);
+            const fileDate = meta.exportDate || dateOf(fileName);
+            const firstName = text(workbook.SheetNames[0]);
+            const fileLabel = meta.fileLabel || fileDate || text(fileName).replace(/\.xlsx$/i, '');
+
+            if (meta.moduleType === 'bubbles') {
+                const bubbleRows = readSheetRows(workbook, '抢位记录');
+                const bubbleHeader = (bubbleRows[0] || []).map(text);
+                const idIndex = bubbleHeader.findIndex(item => item === '号数');
+                const statusIndex = bubbleHeader.findIndex(item => item === '状态');
+                const records = bubbleRows.slice(1).map(row => {
+                    const status = text(row[statusIndex]);
+                    const rank = rankOf(status);
+                    return { studentId: text(row[idIndex]), status, rank, completed: status.includes('完成') && rank !== null, date: fileDate || '', roundLabel: fileLabel || '未标注轮次', taskName: meta.taskName };
+                }).filter(item => item.studentId);
+                return { ok: true, kind: 'bubbles', summary: fileLabel || '泡泡抢位记录', count: records.length, records, meta };
+            }
+
+            if (meta.moduleType === 'errors') {
+                const errorRows = readSheetRows(workbook, '错题记录');
+                const errorHeader = (errorRows[0] || []).map(text);
+                const records = [];
+                errorRows.slice(1).forEach(row => {
+                    const studentId = text(row[0]);
+                    if (!studentId || studentId === '各题错误总计') return;
+                    errorHeader.forEach((label, index) => {
+                        if (index === 0 || label === '错题总计') return;
+                        const value = num(row[index]);
+                        if (value > 0) records.push({ studentId, field: label, value, taskName: meta.taskName, date: fileDate });
+                    });
+                });
+                return { ok: true, kind: 'errors', summary: fileLabel || '错题记录', count: records.length, records, meta };
+            }
+
+            if (meta.moduleType === 'tasks') {
+                const taskRows = readSheetRows(workbook, '任务积分记录');
+                const taskHeader = (taskRows[0] || []).map(text);
+                const fields = taskHeader.map((label, index) => ({ label, index })).filter(item => item.index > 0 && !['总分', '排名'].includes(key(item.label)));
+                const records = [];
+                taskRows.slice(1).forEach(row => {
+                    const studentId = text(row[0]);
+                    if (!studentId) return;
+                    fields.forEach(field => records.push({ studentId, field: field.label, value: num(row[field.index]), taskName: meta.taskName, date: fileDate }));
+                });
+                return { ok: true, kind: 'tasks', summary: fileLabel || '任务积分', count: records.length, records, meta };
+            }
+
+            if (meta.moduleType === 'heatmap') {
+                const logRows = readSheetRows(workbook, '详细操作日志');
+                const records = logRows.slice(1).map(row => ({ seat: text(row[0]), action: text(row[1]), scoreAfter: num(row[2]), time: text(row[3]), taskName: meta.taskName, date: fileDate })).filter(item => item.seat);
+                return { ok: true, kind: 'heatmap', summary: fileLabel || '热力图日志', count: records.length, records, meta };
+            }
+
+            if (meta.moduleType === 'score') {
+                const scoreRows = readSheetRows(workbook, 'records');
+                const records = scoreRows.slice(1).map(row => ({ studentId: text(row[1]), field: text(row[0]), value: num(row[2]), taskName: meta.taskName, date: fileDate })).filter(item => item.studentId && item.field);
+                return { ok: true, kind: 'score', summary: fileLabel || '积分登记', count: records.length, records, meta };
+            }
+
+            if (firstName === '阅读记录' || (normalized[0] === '学号' && text(rows?.[0]?.[1]).includes('阅读时长'))) {
+                const records = rows.slice(1).map(row => ({ studentId: text(row[0]), minutes: num(row[1]), date: fileDate || dateOf(rows?.[0]?.[1]) })).filter(item => item.studentId);
+                return { ok: true, kind: 'reading', summary: firstName || '阅读记录', count: records.length, records, meta };
+            }
+
+            if (firstName === '抢位记录' || (normalized.includes('号数') && normalized.includes('状态'))) {
+                const idIndex = normalized.indexOf('号数');
+                const statusIndex = normalized.indexOf('状态');
+                const records = rows.slice(1).map(row => {
+                    const status = text(row[statusIndex]);
+                    const rank = rankOf(status);
+                    return { studentId: text(row[idIndex]), status, rank, completed: status.includes('完成') && rank !== null, date: fileDate || '', roundLabel: fileLabel || fileDate || '未标注轮次', taskName: meta.taskName };
+                }).filter(item => item.studentId);
+                return { ok: true, kind: 'bubbles', summary: fileLabel || '泡泡抢位记录', count: records.length, records, meta };
+            }
+
+            if (workbook.SheetNames.includes('座位热力图') || workbook.SheetNames.includes('详细操作日志')) {
+                const logRows = readSheetRows(workbook, '详细操作日志');
+                const records = logRows.slice(1).map(row => ({ seat: text(row[0]), action: text(row[1]), scoreAfter: num(row[2]), time: text(row[3]), taskName: meta.taskName, date: fileDate })).filter(item => item.seat);
+                return { ok: true, kind: 'heatmap', summary: fileLabel || '热力图日志', count: records.length, records, meta };
+            }
+
+            if (normalized[1] === '学号' && normalized[2] === '分数') {
+                const records = rows.slice(1).map(row => ({ studentId: text(row[1]), field: text(row[0]), value: num(row[2]), taskName: meta.taskName, date: fileDate })).filter(item => item.studentId && item.field);
+                return { ok: true, kind: 'score', summary: fileLabel || '积分三列表', count: records.length, records, meta };
+            }
+
+            if (normalized[0] === '学号' || normalized[0] === '学生号') {
+                if (normalized.includes('总阅读时长')) {
+                    const dateColumns = header.map((label, index) => ({ label, index, date: dateOf(label) })).filter(item => item.date);
+                    const records = [];
+                    rows.slice(1).forEach(row => {
+                        const studentId = text(row[0]);
+                        if (!studentId) return;
+                        dateColumns.forEach(col => records.push({ studentId, minutes: num(row[col.index]), date: col.date }));
+                    });
+                    return { ok: true, kind: 'reading', summary: '阅读统计汇总', count: records.length, records, meta };
+                }
+                if (normalized.includes('错题总计')) {
+                    const fields = header.map((label, index) => ({ label, index })).filter(item => item.index > 0 && key(item.label) !== '错题总计');
+                    const records = [];
+                    rows.slice(1).forEach(row => {
+                        const studentId = text(row[0]);
+                        if (!studentId) return;
+                        fields.forEach(field => {
+                            const value = num(row[field.index]);
+                            if (value > 0) records.push({ studentId, field: field.label, value, taskName: meta.taskName, date: fileDate });
+                        });
+                    });
+                    return { ok: true, kind: 'errors', summary: fileLabel || '错题统计', count: records.length, records, meta };
+                }
+                if (normalized.includes('完成数量')) {
+                    const fields = header.map((label, index) => ({ label, index })).filter(item => item.index > 0 && key(item.label) !== '完成数量');
+                    const records = [];
+                    rows.slice(1).forEach(row => {
+                        const studentId = text(row[0]);
+                        if (!studentId) return;
+                        fields.forEach(field => records.push({ studentId, field: field.label, value: text(row[field.index]) ? 1 : 0 }));
+                    });
+                    return { ok: true, kind: 'jigsaw', summary: '碎片拼图汇总', count: records.length, records, meta };
+                }
+                if (normalized.includes('总分')) {
+                    const fields = header.map((label, index) => ({ label, index })).filter(item => item.index > 0 && !['总分', '排名'].includes(key(item.label)));
+                    const kind = fields.length && fields.every(field => text(field.label).includes('任务')) ? 'tasks' : 'score';
+                    const records = [];
+                    rows.slice(1).forEach(row => {
+                        const studentId = text(row[0]);
+                        if (!studentId) return;
+                        fields.forEach(field => records.push({ studentId, field: field.label, value: num(row[field.index]), taskName: meta.taskName, date: fileDate }));
+                    });
+                    return { ok: true, kind, summary: fileLabel || (kind === 'tasks' ? '任务积分宽表' : '积分汇总宽表'), count: records.length, records, meta };
+                }
+            }
+
+            return { ok: false, reason: '不是导出询问版可识别的 Excel', meta };
+        }
+
+        function aggregate(kind) {
+            const files = STATE.modules[kind].files;
+            if (!files.length) return null;
+
+            if (kind === 'reading') {
+                const records = files.flatMap(file => file.records.filter(item => inRange(item.date)));
+                const students = new Map();
+                const dates = new Map();
+                records.forEach(item => {
+                    if (!students.has(item.studentId)) students.set(item.studentId, { studentId: item.studentId, total: 0, daily: {} });
+                    const student = students.get(item.studentId);
+                    student.total += item.minutes;
+                    student.daily[item.date] = (student.daily[item.date] || 0) + item.minutes;
+                    if (!dates.has(item.date)) dates.set(item.date, { label: item.date, total: 0, students: new Set() });
+                    dates.get(item.date).total += item.minutes;
+                    dates.get(item.date).students.add(item.studentId);
+                });
+                const studentRows = Array.from(students.values()).sort((a, b) => b.total - a.total).map((item, index) => ({ ...item, rank: index + 1 }));
+                const summaryRows = Array.from(dates.values()).sort((a, b) => a.label.localeCompare(b.label)).map(item => ({ label: item.label, total: item.total, count: item.students.size }));
+                return { kind, files, records, students: studentRows, columns: summaryRows.map(item => item.label), summaries: summaryRows, metric: records.reduce((sum, item) => sum + item.minutes, 0), metricLabel: '总阅读分钟' };
+            }
+
+            if (kind === 'bubbles') {
+                const records = files.flatMap(file => file.records.filter(item => inRange(item.date)));
+                const students = new Map();
+                const rounds = new Map();
+                records.forEach(item => {
+                    const roundLabel = item.roundLabel || item.date || '未标注日期';
+                    if (!students.has(item.studentId)) students.set(item.studentId, { studentId: item.studentId, rounds: {}, ranks: [], done: 0 });
+                    const student = students.get(item.studentId);
+                    student.rounds[roundLabel] = item.completed && item.rank !== null ? `第${item.rank}名` : '未完成';
+                    if (item.completed && item.rank !== null) { student.ranks.push(item.rank); student.done += 1; }
+                    if (!rounds.has(roundLabel)) rounds.set(roundLabel, { label: roundLabel, count: 0, best: [], rounds: 0 });
+                    const round = rounds.get(roundLabel);
+                    round.rounds += 1;
+                    if (item.completed && item.rank !== null) { round.count += 1; if (item.rank === 1) round.best.push(item.studentId); }
+                });
+                const studentRows = Array.from(students.values()).map(item => ({ ...item, avg: item.ranks.length ? item.ranks.reduce((a, b) => a + b, 0) / item.ranks.length : null })).sort((a, b) => (a.avg ?? 9999) - (b.avg ?? 9999) || b.done - a.done).map((item, index) => ({ ...item, rank: index + 1 }));
+                const summaryRows = Array.from(rounds.values()).sort((a, b) => a.label.localeCompare(b.label)).map(item => ({ label: item.label, count: item.count, best: item.best.join('、') || '-' }));
+                return { kind, files, records, students: studentRows, columns: summaryRows.map(item => item.label), summaries: summaryRows, metric: records.filter(item => item.completed).length, metricLabel: '完成记录数' };
+            }
+
+            if (kind === 'heatmap') {
+                const records = files.flatMap(file => file.records);
+                const seats = new Map();
+                records.forEach(item => {
+                    if (!seats.has(item.seat)) seats.set(item.seat, { label: item.seat, count: 0, latest: 0 });
+                    const seat = seats.get(item.seat);
+                    seat.count += 1;
+                    seat.latest = item.scoreAfter;
+                });
+                return { kind, files, records, students: [], columns: [], summaries: Array.from(seats.values()).sort((a, b) => b.count - a.count), metric: records.length, metricLabel: '操作次数' };
+            }
+
+            const records = files.flatMap(file => file.records);
+            const students = new Map();
+            const fields = new Map();
+            records.forEach(item => {
+                if (!students.has(item.studentId)) students.set(item.studentId, { studentId: item.studentId, total: 0, fields: {} });
+                const student = students.get(item.studentId);
+                student.total += item.value;
+                student.fields[item.field] = (student.fields[item.field] || 0) + item.value;
+                if (!fields.has(item.field)) fields.set(item.field, { label: item.field, total: 0, count: 0 });
+                const field = fields.get(item.field);
+                field.total += item.value;
+                field.count += 1;
+            });
+            return { kind, files, records, students: Array.from(students.values()).sort((a, b) => b.total - a.total).map((item, index) => ({ ...item, rank: index + 1 })), columns: Array.from(fields.keys()), summaries: Array.from(fields.values()).map(item => ({ ...item, avg: item.count ? item.total / item.count : 0 })).sort((a, b) => b.total - a.total), metric: records.reduce((sum, item) => sum + item.value, 0), metricLabel: kind === 'errors' ? '错误累计次数' : '累计值' };
+        }
+
+        function renderStats(data) {
+            const values = data ? [
+                ['模块文件数', data.files.length],
+                [data.kind === 'heatmap' ? '活跃对象数' : '学生人数', data.kind === 'heatmap' ? data.summaries.length : data.students.length],
+                ['记录数', data.records.length],
+                [data.metricLabel, data.metric]
+            ] : [['模块文件数', 0], ['学生人数', 0], ['记录数', 0], ['核心指标', 0]];
+            ['1', '2', '3', '4'].forEach((id, index) => { $('dashboard-stat-label-' + id).textContent = values[index][0]; $('dashboard-stat-value-' + id).textContent = fmt(values[index][1]); });
+        }
+
+        function renderRanking(data) {
+            if (!data) { el.ranking.innerHTML = emptyBox('先选择文件夹并刷新数据。'); return; }
+            if (data.kind === 'heatmap') {
+                const rows = data.summaries.slice(0, 12);
+                const max = Math.max(...rows.map(item => item.count), 1);
+                $('dashboard-ranking-title').textContent = '热力图高频位置';
+                el.ranking.innerHTML = rows.map((item, index) => metricCard(index + 1, item.label, `最新分数 ${fmt(item.latest)}`, fmt(item.count), '记录次数', item.count, max)).join('');
+                return;
+            }
+            $('dashboard-ranking-title').textContent = data.kind === 'reading' ? '阅读时长排名' : data.kind === 'bubbles' ? '抢位稳定度排名' : `${META[data.kind]} 排名`;
+            const rows = data.students.slice(0, 12);
+            const max = Math.max(...rows.map(item => data.kind === 'bubbles' ? item.done : item.total), 1);
+            el.ranking.innerHTML = rows.length ? rows.map(item => metricCard(item.rank, `学号 ${item.studentId}`, data.kind === 'reading' ? `覆盖 ${Object.keys(item.daily).length} 天` : data.kind === 'bubbles' ? `完成 ${item.done} 次` : `覆盖 ${Object.keys(item.fields).length} 项`, data.kind === 'reading' ? `${fmt(item.total)} 分钟` : data.kind === 'bubbles' ? (item.avg == null ? '暂无完成记录' : `平均第 ${item.avg.toFixed(2)} 名`) : fmt(item.total), data.kind === 'bubbles' ? '稳定度指标' : data.metricLabel, data.kind === 'bubbles' ? item.done : item.total, max)).join('') : emptyBox('这个模块还没有可展示的排名。');
+        }
+
+        function renderSummary(data) {
+            if (!data) { el.summary.innerHTML = emptyBox('先选择文件夹并刷新数据。'); return; }
+            $('dashboard-summary-title').textContent = data.kind === 'reading' ? '日期汇总' : data.kind === 'bubbles' ? '轮次汇总' : data.kind === 'heatmap' ? '位置摘要' : `${META[data.kind]} 摘要`;
+            const rows = data.summaries.slice(0, 20);
+            const max = Math.max(...rows.map(item => item.total || item.count || 0), 1);
+            el.summary.innerHTML = rows.length ? rows.map(item => metricCard('', item.label, data.kind === 'reading' ? `参与 ${fmt(item.count)} 人，全班累计 ${fmt(item.total)} 分钟` : data.kind === 'bubbles' ? `完成 ${fmt(item.count)} 人，第一名 ${item.best}` : data.kind === 'heatmap' ? `记录 ${fmt(item.count)} 次，最新分数 ${fmt(item.latest)}` : `记录 ${fmt(item.count)} 条，均值 ${item.avg.toFixed(2)}`, fmt(item.total || item.count), '核心值', item.total || item.count, max)).join('') : emptyBox('这个模块还没有可展示的摘要。');
+        }
+
+        function renderMatrix(data) {
+            if (!data) { el.head.innerHTML = '<th>暂无数据</th>'; el.body.innerHTML = '<tr><td class="text-slate-500">先选择文件夹并刷新数据。</td></tr>'; return; }
+            if (data.kind === 'heatmap') {
+                el.head.innerHTML = ['座位', '动作', '操作后分数', '时间'].map(item => `<th>${item}</th>`).join('');
+                el.body.innerHTML = data.records.map(item => `<tr><td>${esc(item.seat)}</td><td>${esc(item.action)}</td><td>${fmt(item.scoreAfter)}</td><td>${esc(item.time)}</td></tr>`).join('');
+                return;
+            }
+            if (data.kind === 'reading') {
+                el.head.innerHTML = ['排名', '学号', ...data.columns, '总阅读分钟'].map(item => `<th>${esc(item)}</th>`).join('');
+                el.body.innerHTML = data.students.map(student => `<tr><td>${student.rank}</td><td>${esc(student.studentId)}</td>${data.columns.map(column => `<td>${fmt(student.daily[column] || 0)}</td>`).join('')}<td>${fmt(student.total)}</td></tr>`).join('');
+                return;
+            }
+            if (data.kind === 'bubbles') {
+                el.head.innerHTML = ['排名', '学号', ...data.columns, '平均名次', '完成次数'].map(item => `<th>${esc(item)}</th>`).join('');
+                el.body.innerHTML = data.students.map(student => `<tr><td>${student.rank}</td><td>${esc(student.studentId)}</td>${data.columns.map(column => `<td>${esc(student.rounds[column] || '-')}</td>`).join('')}<td>${student.avg == null ? '-' : student.avg.toFixed(2)}</td><td>${fmt(student.done)}</td></tr>`).join('');
+                return;
+            }
+            el.head.innerHTML = ['排名', '学号', ...data.columns, data.metricLabel].map(item => `<th>${esc(item)}</th>`).join('');
+            el.body.innerHTML = data.students.map(student => `<tr><td>${student.rank}</td><td>${esc(student.studentId)}</td>${data.columns.map(column => `<td>${fmt(student.fields[column] || 0)}</td>`).join('')}<td>${fmt(student.total)}</td></tr>`).join('');
+        }
+
+        function renderLogs(moduleName) {
+            const rows = moduleName ? STATE.logs.filter(item => item.kind === moduleName) : STATE.logs;
+            el.logs.innerHTML = rows.length ? rows.map(item => `<tr><td>${esc(item.name)}</td><td>${esc(item.status)}</td><td>${esc(item.summary)}</td><td>${fmt(item.count)}</td></tr>`).join('') : '<tr><td colspan="4" class="text-slate-500">当前模块暂无文件日志。</td></tr>';
+        }
+
+        function render() {
+            const moduleName = currentModule();
+            const data = moduleName ? aggregate(moduleName) : null;
+            const modules = availableModules();
+            el.chips.innerHTML = modules.length ? modules.map(name => `<button class="dashboard-chip ${name === moduleName ? 'active' : ''}" data-module="${name}">${META[name]} · ${STATE.modules[name].files.length}</button>`).join('') : '<div class="text-sm text-slate-500">还没有识别到可统计的模块。</div>';
+            el.range.style.display = (moduleName === 'reading' || moduleName === 'bubbles') ? 'block' : 'none';
+            el.export.disabled = !data;
+            renderStats(data);
+            renderRanking(data);
+            renderSummary(data);
+            renderMatrix(data);
+            renderLogs(moduleName);
+        }
+
+        async function scanFolder() {
+            if (!STATE.dir) return;
+            el.status.textContent = '正在扫描文件夹...';
+            el.refresh.disabled = true;
+            el.export.disabled = true;
+            resetModules();
+            STATE.logs = [];
+            try {
+                for await (const entry of STATE.dir.values()) {
+                    if (entry.kind !== 'file' || !entry.name.toLowerCase().endsWith('.xlsx')) continue;
+                    try {
+                        const workbook = await readWorkbook(await entry.getFile());
+                        const parsed = classifyWorkbook(workbook, entry.name);
+                        if (parsed.meta?.sourceType === 'dashboard-summary') {
+                            STATE.logs.push({ name: entry.name, kind: 'unknown', status: '已跳过看板汇总导出', summary: parsed.meta?.sourceModule || '汇总看板导出', count: 0 });
+                            continue;
+                        }
+                        if (!parsed.ok) { STATE.logs.push({ name: entry.name, kind: 'unknown', status: parsed.reason, summary: '-', count: 0 }); continue; }
+                        STATE.modules[parsed.kind].files.push(parsed);
+                        const metaSummary = parsed.meta?.source === 'sheet' ? `${META[parsed.kind]} / ${parsed.meta.taskName || '未填任务名'}` : parsed.summary;
+                        STATE.logs.push({ name: entry.name, kind: parsed.kind, status: parsed.meta?.source === 'sheet' ? '已按导出信息识别' : '已按内容兜底识别', summary: metaSummary, count: parsed.count });
+                    } catch (error) {
+                        STATE.logs.push({ name: entry.name, kind: 'unknown', status: `读取失败：${error.message}`, summary: '-', count: 0 });
+                    }
+                }
+                render();
+                const valid = STATE.logs.filter(item => item.kind !== 'unknown').length;
+                el.status.textContent = valid ? `已识别 ${availableModules().length} 个模块，扫描到 ${valid} 个有效文件` : '没有识别到导出询问版的有效 Excel';
+            } catch (error) {
+                el.status.textContent = '扫描失败';
+                throw error;
+            } finally {
+                el.refresh.disabled = false;
+            }
+        }
+
+        function exportCurrent() {
+            const moduleName = currentModule();
+            const data = moduleName ? aggregate(moduleName) : null;
+            if (!data) { alert('当前没有可导出的模块数据。'); return; }
+            let rows = [];
+            if (data.kind === 'reading') {
+                rows = [['排名', '学号', ...data.columns, '总阅读分钟'], ...data.students.map(student => [student.rank, student.studentId, ...data.columns.map(column => student.daily[column] || 0), student.total])];
+            } else if (data.kind === 'bubbles') {
+                rows = [['排名', '学号', ...data.columns, '平均名次', '完成次数'], ...data.students.map(student => [student.rank, student.studentId, ...data.columns.map(column => student.rounds[column] || '-'), student.avg == null ? '' : Number(student.avg.toFixed(2)), student.done])];
+            } else if (data.kind === 'heatmap') {
+                rows = [['座位', '动作', '操作后分数', '时间'], ...data.records.map(item => [item.seat, item.action, item.scoreAfter, item.time])];
+            } else {
+                rows = [['排名', '学号', ...data.columns, data.metricLabel], ...data.students.map(student => [student.rank, student.studentId, ...data.columns.map(column => student.fields[column] || 0), student.total])];
+            }
+            const sheet = XLSX.utils.aoa_to_sheet(rows);
+            const book = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(book, sheet, META[data.kind]);
+            const exportDate = new Date().toISOString().slice(0, 10);
+            const taskName = `${META[data.kind]}汇总`;
+            const rangeText = STATE.start || STATE.end ? `${STATE.start || '开始'} 至 ${STATE.end || '结束'}` : '未筛选';
+            XLSX.utils.book_append_sheet(book, window.RixinToolbox.buildExportInfoSheet('汇总看板导出', taskName, exportDate, [
+                ['来源类型', 'dashboard-summary'],
+                ['来源模块', META[data.kind]],
+                ['来源文件数', data.files.length],
+                ['时间筛选范围', rangeText]
+            ]), '导出信息');
+            const suffix = (STATE.start || STATE.end) ? `_${STATE.start || '开始'}_${STATE.end || '结束'}` : '';
+            window.RixinToolbox.saveWorkbook(book, `${META[data.kind]}汇总${suffix}.xlsx`);
+        }
+
+        function handleError(error) {
+            if (error && error.name === 'AbortError') return;
+            alert(`操作失败：${error.message}`);
+        }
+
+        async function openModule(moduleName) {
+            if (!META[moduleName]) return false;
+            STATE.active = moduleName;
+            saveViewState();
+            if (!STATE.dir) {
+                el.status.textContent = '已切换到分类汇总，请先选择汇总文件夹。';
+                render();
+                return false;
+            }
+            await scanFolder();
+            render();
+            return true;
+        }
+
+        window.RixinToolbox.dashboard = {
+            hasUsableDirectory() {
+                return !!STATE.dir;
+            },
+            openModule
+        };
+
+        el.chips.addEventListener('click', (event) => {
+            const button = event.target.closest('[data-module]');
+            if (!button) return;
+            STATE.active = button.dataset.module;
+            saveViewState();
+            render();
+        });
+        el.start.addEventListener('change', () => { STATE.start = el.start.value; saveViewState(); render(); });
+        el.end.addEventListener('change', () => { STATE.end = el.end.value; saveViewState(); render(); });
+        el.pick.addEventListener('click', () => pickFolder().catch(handleError));
+        el.refresh.addEventListener('click', () => scanFolder().catch(handleError));
+        el.export.addEventListener('click', exportCurrent);
+
+        resetModules();
+        restoreViewState();
+        render();
+        // 初始化时尝试恢复上次扫描目录；失败时优雅降级为手动选择
+        tryRestoreLastFolder().then((restored) => {
+            if (restored) scanFolder().catch(handleError);
+        }).catch(handleError);
+    })();
+
 </script>
 </body>
 </html>
+
+
+
+
