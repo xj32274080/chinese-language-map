@@ -6,13 +6,13 @@
     <title>日新教师工具箱4</title>
 
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/vendor/tailwindcss.js"></script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Ma+Shan+Zheng&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
     
     <!-- XLSX 库 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="../assets/vendor/xlsx.full.min.js"></script>
 
     <style>
         html {
@@ -358,8 +358,9 @@
             <button class="nav-button whitespace-nowrap text-gray-600 font-bold py-2 px-3 sm:px-4 text-sm sm:text-base shrink-0" data-page="page-dashboard">分类汇总</button>
         </div>
         
-        <!-- 全局人数设置控制台 - 保持在最右侧 -->
-        <div class="flex items-center shrink-0 border-l-2 border-blue-100 pl-2 sm:pl-3 ml-1 sm:ml-2">
+        <!-- 版本标识与全局人数设置控制台 - 保持在最右侧 -->
+        <div class="flex items-center shrink-0 border-l-2 border-blue-100 pl-2 sm:pl-3 ml-1 sm:ml-2 gap-2">
+            <span class="hidden lg:inline-flex items-center rounded-full bg-blue-50 px-2.5 py-1 text-xs font-black text-blue-700 border border-blue-100 whitespace-nowrap">教师工具箱4</span>
             <span class="text-xs sm:text-sm font-bold text-gray-600 hidden md:inline mr-1.5 whitespace-nowrap">班级人数:</span>
             <input type="number" id="global-student-count" value="60" min="1" max="150" title="调整全班总人数（将同步到所有工具）" class="w-12 sm:w-16 py-1 px-1 text-center border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none text-blue-800 font-bold bg-white/80 text-sm sm:text-base transition-all">
         </div>
@@ -369,7 +370,7 @@
         <!-- Page 1: 日新阅读 -->
         <div id="page-rixin" class="page-content">
             <header class="text-center py-4 md:py-6">
-                <div class="flex justify-center items-center gap-3 sm:gap-4 mb-2"><img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[阅读图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">日新阅读</h1></div>
+                <div class="flex justify-center items-center gap-3 sm:gap-4 mb-2"><img src="../assets/images/lion-sprite.png" alt="[阅读图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">日新阅读</h1></div>
                 <p class="text-sm text-gray-500 mb-4 px-2">点击泡泡开始或结束计时，或者使用控制台全局管理</p>
                 
                 <div class="max-w-3xl mx-auto bg-white/70 backdrop-blur-md rounded-2xl p-3 sm:p-5 mb-6 shadow-sm border border-white flex flex-wrap items-center justify-center gap-3 sm:gap-6">
@@ -410,7 +411,7 @@
         <!-- Page 2: 泡泡抢位 -->
         <div id="page-bubbles" class="page-content">
              <header class="text-center py-4 md:py-6">
-                <div class="flex justify-center items-center gap-3 sm:gap-4 mb-2"><img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[挑战图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-6xl font-bold">泡泡抢位</h1></div>
+                <div class="flex justify-center items-center gap-3 sm:gap-4 mb-2"><img src="../assets/images/lion-sprite.png" alt="[挑战图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-6xl font-bold">泡泡抢位</h1></div>
                 <p class="text-sm text-gray-500 mb-4 px-2">按学生完成顺序点击泡泡，可以中途暂停计时</p>
                 
                 <div class="bubbles-control-bar">
@@ -434,7 +435,7 @@
         <div id="page-lottery" class="page-content">
             <header class="text-center py-4">
                 <div class="flex justify-center items-center gap-3 sm:gap-4">
-                    <img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[抽奖图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg">
+                    <img src="../assets/images/lion-sprite.png" alt="[抽奖图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg">
                     <h1 class="title-font main-title text-4xl sm:text-5xl md:text-6xl font-bold">天选之子</h1>
                 </div>
             </header>
@@ -470,7 +471,7 @@
         
         <!-- Page 4: 错题记录 -->
         <div id="page-errors" class="page-content">
-            <header class="text-center mb-4 sm:mb-6 px-2"><div class="flex justify-center items-center gap-3 sm:gap-4"><img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[装饰图标]" class="h-16 sm:h-20 md:h-24"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-6xl font-bold">错题记录</h1></div><p id="errors-current-student-indicator" class="mt-2 text-sm sm:text-lg text-gray-600">请从左侧选择一个学生开始记录</p></header>
+            <header class="text-center mb-4 sm:mb-6 px-2"><div class="flex justify-center items-center gap-3 sm:gap-4"><img src="../assets/images/lion-sprite.png" alt="[装饰图标]" class="h-16 sm:h-20 md:h-24"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-6xl font-bold">错题记录</h1></div><p id="errors-current-student-indicator" class="mt-2 text-sm sm:text-lg text-gray-600">请从左侧选择一个学生开始记录</p></header>
             <div class="tool-task-panel">
                 <label for="errors-task-name" class="block text-sm font-bold text-gray-700 mb-2">任务名</label>
                 <input type="text" id="errors-task-name" class="tool-task-input text-sm sm:text-base" placeholder="请输入本次错题记录任务名">
@@ -500,7 +501,7 @@
 
         <!-- Page 5: 任务积分 -->
         <div id="page-tasks" class="page-content">
-            <header class="text-center py-4 md:py-8"><div class="flex justify-center items-center gap-3 sm:gap-4"><img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[任务图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">任务积分</h1></div><div class="text-center my-4"><button id="tasks-mode-toggle-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-xl transition-all active:scale-95 shadow-md text-sm sm:text-base">当前为：减分模式</button></div></header>
+            <header class="text-center py-4 md:py-8"><div class="flex justify-center items-center gap-3 sm:gap-4"><img src="../assets/images/lion-sprite.png" alt="[任务图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">任务积分</h1></div><div class="text-center my-4"><button id="tasks-mode-toggle-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-5 rounded-xl transition-all active:scale-95 shadow-md text-sm sm:text-base">当前为：减分模式</button></div></header>
             <div class="tool-task-panel">
                 <label for="tasks-task-name" class="block text-sm font-bold text-gray-700 mb-2">任务名</label>
                 <input type="text" id="tasks-task-name" class="tool-task-input text-sm sm:text-base" placeholder="请输入本次任务积分名称">
@@ -515,7 +516,7 @@
 
         <!-- Page 6: 碎片拼图 -->
         <div id="page-jigsaw" class="page-content">
-            <header class="text-center py-4 md:py-8"><div class="flex justify-center items-center gap-3 sm:gap-4"><img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[拼图图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">碎片拼图</h1></div><div id="jigsaw-mode-controls" class="flex justify-center items-center gap-3 sm:gap-4 my-4 flex-wrap"><button data-petals="3" class="mode-button bg-blue-200 hover:bg-blue-300 text-blue-800 font-bold py-2 px-4 sm:px-5 rounded-xl transition-all active:scale-95 shadow-sm text-sm sm:text-base">3花瓣</button><button data-petals="4" class="mode-button bg-blue-200 hover:bg-blue-300 text-blue-800 font-bold py-2 px-4 sm:px-5 rounded-xl transition-all active:scale-95 shadow-sm text-sm sm:text-base">4花瓣</button><button data-petals="5" class="mode-button bg-blue-200 hover:bg-blue-300 text-blue-800 font-bold py-2 px-4 sm:px-5 rounded-xl transition-all active:scale-95 shadow-sm text-sm sm:text-base">5花瓣</button></div></header>
+            <header class="text-center py-4 md:py-8"><div class="flex justify-center items-center gap-3 sm:gap-4"><img src="../assets/images/lion-sprite.png" alt="[拼图图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg"><h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">碎片拼图</h1></div><div id="jigsaw-mode-controls" class="flex justify-center items-center gap-3 sm:gap-4 my-4 flex-wrap"><button data-petals="3" class="mode-button bg-blue-200 hover:bg-blue-300 text-blue-800 font-bold py-2 px-4 sm:px-5 rounded-xl transition-all active:scale-95 shadow-sm text-sm sm:text-base">3花瓣</button><button data-petals="4" class="mode-button bg-blue-200 hover:bg-blue-300 text-blue-800 font-bold py-2 px-4 sm:px-5 rounded-xl transition-all active:scale-95 shadow-sm text-sm sm:text-base">4花瓣</button><button data-petals="5" class="mode-button bg-blue-200 hover:bg-blue-300 text-blue-800 font-bold py-2 px-4 sm:px-5 rounded-xl transition-all active:scale-95 shadow-sm text-sm sm:text-base">5花瓣</button></div></header>
 
             <section class="max-w-4xl mx-auto mb-6 px-2 sm:px-4">
                 <div id="jigsaw-task-names" class="bg-white/70 backdrop-blur-md rounded-xl p-3 sm:p-5 shadow-md border border-white">
@@ -536,7 +537,7 @@
         <div id="page-heatmap" class="page-content">
             <header class="text-center pt-4 pb-2">
                 <div class="flex justify-center items-center gap-3 sm:gap-4">
-                    <img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[热力图图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg">
+                    <img src="../assets/images/lion-sprite.png" alt="[热力图图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg">
                     <h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">座位热力图</h1>
                 </div>
             </header>
@@ -565,7 +566,7 @@
         <div id="page-score" class="page-content">
             <header class="text-center py-4 md:py-8">
                 <div class="flex justify-center items-center gap-3 sm:gap-4">
-                    <img src="https://i.postimg.cc/8zGQV1bn/Lion-and-Sprite-with-Transparent-Background.png" alt="[积分图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg">
+                    <img src="../assets/images/lion-sprite.png" alt="[积分图标]" class="h-16 sm:h-20 md:h-24 filter drop-shadow-lg">
                     <h1 class="title-font main-title text-4xl sm:text-5xl md:text-7xl font-bold">积分登记</h1>
                 </div>
             </header>
@@ -1200,6 +1201,9 @@
             const ws = XLSX.utils.aoa_to_sheet(rows);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "阅读记录");
+            XLSX.utils.book_append_sheet(wb, window.RixinToolbox.buildExportInfoSheet('日新阅读', headerName, dateStr, [
+                ['学生人数', window.RixinToolbox.studentCount]
+            ]), "导出信息");
             window.RixinToolbox.saveWorkbook(wb, `${headerName}.xlsx`);
             window.RixinToolbox.offerDashboardJump('reading');
         });
@@ -1274,7 +1278,13 @@
                     const ws = XLSX.utils.aoa_to_sheet(rows);
                     const wb = XLSX.utils.book_new();
                     XLSX.utils.book_append_sheet(wb, ws, '阅读统计');
-                    window.RixinToolbox.saveWorkbook(wb, `日新阅读统计汇总_${new Date().toISOString().slice(0, 10)}.xlsx`);
+                    const exportDate = new Date().toISOString().slice(0, 10);
+                    XLSX.utils.book_append_sheet(wb, window.RixinToolbox.buildExportInfoSheet('汇总看板导出', '日新阅读历史汇总', exportDate, [
+                        ['来源类型', 'dashboard-summary'],
+                        ['来源模块', '日新阅读'],
+                        ['来源文件数', files.length]
+                    ]), '导出信息');
+                    window.RixinToolbox.saveWorkbook(wb, `日新阅读统计汇总_${exportDate}.xlsx`);
                     alert(`成功！已合并 ${files.length} 个文件，统计 ${studentsArray.length} 名学生。`);
                 } catch (error) { alert('合并统计失败：' + error.message); }
             };
@@ -1868,7 +1878,12 @@
                 }
                 row.push(completedCount); data.push(row);
             }
-            const ws = XLSX.utils.aoa_to_sheet(data); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, `拼图任务记录-${currentPetalCount}瓣`); window.RixinToolbox.saveWorkbook(wb, `碎片拼图记录_${new Date().toISOString().slice(0,10)}.xlsx`);
+            const exportDate = new Date().toISOString().slice(0,10);
+            const taskName = `碎片拼图-${currentPetalCount}瓣`;
+            const ws = XLSX.utils.aoa_to_sheet(data); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, `拼图任务记录-${currentPetalCount}瓣`); XLSX.utils.book_append_sheet(wb, window.RixinToolbox.buildExportInfoSheet('碎片拼图', taskName, exportDate, [
+                ['学生人数', numStudents],
+                ['花瓣数量', currentPetalCount]
+            ]), "导出信息"); window.RixinToolbox.saveWorkbook(wb, `碎片拼图记录_${exportDate}.xlsx`);
         });
 
         if(modeControls) { modeControls.addEventListener('click', switchMode); const defaultModeBtn = modeControls.querySelector('[data-petals="3"]'); if (defaultModeBtn) defaultModeBtn.classList.add('active'); }
@@ -2243,7 +2258,14 @@
                     const wb = XLSX.utils.book_new();
                     XLSX.utils.book_append_sheet(wb, ws, '积分统计');
 
-                    const filename = `学生积分统计汇总_${new Date().toISOString().slice(0, 10)}.xlsx`;
+                    const exportDate = new Date().toISOString().slice(0, 10);
+                    XLSX.utils.book_append_sheet(wb, window.RixinToolbox.buildExportInfoSheet('汇总看板导出', '积分登记历史汇总', exportDate, [
+                        ['来源类型', 'dashboard-summary'],
+                        ['来源模块', '积分登记'],
+                        ['来源文件数', files.length]
+                    ]), '导出信息');
+
+                    const filename = `学生积分统计汇总_${exportDate}.xlsx`;
                     window.RixinToolbox.saveWorkbook(wb, filename);
 
                     alert(`成功！已合并 ${files.length} 个文件，统计 ${studentsArray.length} 名学生。`);
@@ -2825,6 +2847,7 @@
 </script>
 </body>
 </html>
+
 
 
 
